@@ -1,0 +1,51 @@
+.FollowersCarts{
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.7rem;
+    gap: 1rem;
+    width: 100%;
+    font-size: 14px;
+}
+
+.follower{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.follower>div{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.followerImg{
+    height: 3.2rem;
+    width: 3.2rem;
+    border-radius: 50%;
+}
+
+.name {
+    display: flex;
+    flex-direction: column;
+}
+
+.name>span:nth-child(1){
+    font-weight: bold;
+}
+
+.followBtn{
+    height: 2rem;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.FollowersCarts>span{
+    font-weight: bold;
+    color: orange;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-self: center;
+    cursor:pointer;
+}
