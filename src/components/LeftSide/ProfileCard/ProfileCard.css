@@ -22,9 +22,11 @@
 
 .ProfileImages>img:nth-child(2){
     width: 6rem;
+    max-height: 6rem;
     border-radius: 50%;
     position: absolute;
     bottom: -3rem;
+    object-fit: cover;
     box-shadow: var(--profileShadow);
 }
 
