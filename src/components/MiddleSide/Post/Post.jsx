@@ -1,9 +1,10 @@
 import React from 'react'
-import LikeImg from '../../img/like.png'
-import NotlikeImg from '../../img/notlike.png'
-import ShareImg from '../../img/share.png'
-import CommentImg from '../../img/comment.png'
+import LikeImg from '../../../img/like.png'
+import NotlikeImg from '../../../img/notlike.png'
+import ShareImg from '../../../img/share.png'
+import CommentImg from '../../../img/comment.png'
 import './Post.css'
+
 
 const Post = (data, id) => {
     return (

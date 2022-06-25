@@ -1,10 +1,11 @@
 import React from 'react'
 import TrendCard from '../TrendCard/TrendCard'
-import HomeImg from '../../img/home.png'
-import MessageImg from '../../img/comment.png'
-import NotiImg from '../../img/noti.png'
+import HomeImg from '../../../img/home.png'
+import MessageImg from '../../../img/comment.png'
+import NotiImg from '../../../img/noti.png'
 import { UilSetting } from '@iconscout/react-unicons'
 import './RightSide.css'
+
 
 const RightSide = () => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import './FollowersCart.css'
-import { Followers } from '../../Data/FollowersData'
+import { Followers } from '../../../Data/FollowersData'
 
 const FollowersCart = () => {
     return (

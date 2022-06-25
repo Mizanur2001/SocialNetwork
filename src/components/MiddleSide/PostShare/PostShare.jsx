@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import profileImg from '../../img/sruti.jpg'
+import profileImg from '../../../img/sruti.jpg'
 import './PostShare.css'
 import { UilScenery, UilPlayCircle, UilLocationPoint, UilSchedule, UilTimes } from '@iconscout/react-unicons'
 
