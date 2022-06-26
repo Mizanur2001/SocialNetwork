@@ -1,0 +1,120 @@
+.Auth{
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.Slogan{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.Slogan>span:nth-child(1){
+    font-weight: bold;
+    font-size: 3.5rem;
+    color: gray;
+}
+
+.Slogan>span:nth-child(2){
+    font-size: 13px;
+}
+
+.LeftSide{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.LeftSide>img{
+    height: 4.3rem;
+    width: 5rem;
+}
+
+.webName>h1{
+    margin-bottom: 0;
+    font-size: 3rem;
+    background-image: var(--buttonBg);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}
+
+.InpName{
+    display: flex;
+    gap: 0.75rem;
+}
+
+.Password{
+    display: flex;
+    gap: 0.75rem;
+}
+
+.InpUname{
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.SignUp{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--cardColor);
+    padding: 10px;
+    border-radius: 1rem;
+}
+
+.InfoInput{
+    border: none;
+    outline: none;
+    background-color: var(--inputColor);
+    border-radius: 8px;
+    padding: 20px;
+    font-weight: bold;
+}
+
+.SignUpBtn{
+    align-self: flex-end;
+    width: 6rem;
+    height: 2.5rem;
+    padding: 10px;
+}
+
+.bottomPartSignUp{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.gradientText{
+    background-image: var(--buttonBg);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}
+
+.bottomPartSignIn{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+    font-size: 13px;
+}
