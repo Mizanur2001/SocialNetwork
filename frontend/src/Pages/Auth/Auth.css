@@ -1,4 +1,4 @@
-.Auth{
+.Auth {
     position: relative;
     height: 100vh;
     display: flex;
@@ -7,36 +7,36 @@
     gap: 4rem;
 }
 
-.Slogan{
+.Slogan {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
 }
 
-.Slogan>span:nth-child(1){
+.Slogan>span:nth-child(1) {
     font-weight: bold;
     font-size: 3.5rem;
     color: gray;
 }
 
-.Slogan>span:nth-child(2){
+.Slogan>span:nth-child(2) {
     font-size: 13px;
 }
 
-.LeftSide{
+.LeftSide {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2rem;
 }
 
-.LeftSide>img{
+.LeftSide>img {
     height: 4.3rem;
     width: 5rem;
 }
 
-.webName>h1{
+.webName>h1 {
     margin-bottom: 0;
     font-size: 3rem;
     background-image: var(--buttonBg);
@@ -48,24 +48,24 @@
     -moz-text-fill-color: transparent;
 }
 
-.InpName{
+.InpName {
     display: flex;
     gap: 0.75rem;
 }
 
-.Password{
+.Password {
     display: flex;
     gap: 0.75rem;
 }
 
-.InpUname{
+.InpUname {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     width: 100%;
 }
 
-.SignUp{
+.SignUp {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -76,7 +76,24 @@
     border-radius: 1rem;
 }
 
-.InfoInput{
+.startingDivSignUpForm {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.startingDivSignUpForm>h3{
+    margin-left: 10px;
+}
+
+.startingDivSignUpForm>span{
+    color: red;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.InfoInput {
     border: none;
     outline: none;
     background-color: var(--inputColor);
@@ -85,14 +102,14 @@
     font-weight: bold;
 }
 
-.SignUpBtn{
+.SignUpBtn {
     align-self: flex-end;
     width: 6rem;
     height: 2.5rem;
     padding: 10px;
 }
 
-.bottomPartSignUp{
+.bottomPartSignUp {
     margin-top: 10px;
     width: 100%;
     display: flex;
@@ -101,7 +118,7 @@
 }
 
 
-.gradientText{
+.gradientText {
     background-image: var(--buttonBg);
     background-size: 100%;
     background-repeat: repeat;
@@ -111,10 +128,14 @@
     -moz-text-fill-color: transparent;
 }
 
-.bottomPartSignIn{
+.bottomPartSignIn {
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
     font-size: 13px;
+}
+
+.c-pointer {
+    cursor: pointer;
 }

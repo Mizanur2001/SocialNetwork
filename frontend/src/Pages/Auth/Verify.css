@@ -1,0 +1,52 @@
+.Verify {
+    position: relative;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.startingDiv {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.startingDiv>span{
+    color: red;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.Form {
+    background: rgb(239 235 235 / 64%);
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 13rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.veriBtn {
+    align-self: flex-end;
+    width: 30%;
+    height: 2.5rem;
+}
+
+.endDivOfForm {
+    margin-top: 1.5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.endDivOfForm>span {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}

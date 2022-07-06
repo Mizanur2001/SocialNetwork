@@ -59,32 +59,27 @@ const authController = () => {
                 const strongPassTrue = password.search(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)
 
                 if (!username || !email || !password || !cpassword || !firstname || !lastname) {
-                    return res.status(400).send("all fields required")
+                    return res.status(400).send("All fields required")
                 }
 
                 if (strongPassTrue == -1) {
-                    return res.status(400).send("chose a Strong password")
+                    return res.status(400).send("Chose a Strong password")
                 }
 
                 if (password != cpassword) {
-                    return res.status(400).send("password not matched")
+                    return res.status(400).send("Password not matched")
                 }
 
                 if (lastname.length <= 2 || firstname.length <= 2 || username.length <= 2) {
-                    return res.status(400).send("usernme lastname first name shold be grater thna 3 char")
+                    return res.status(400).send("Username and Name shold be grater than 3 char")
                 }
 
                 const findEmail = await userModel.findOne({ email: email })
                 const findUserName = await userModel.findOne({ username: username })
 
                 if (findEmail == null && findUserName == null) {
-                    //password hassing 
-                    const salt = await bcrypt.genSalt(10)
-                    const hasedPass = await bcrypt.hash(password, salt)
-                    //Save user data into Session
-                    req.session.user = { username: username, email: email, firstname: firstname, lastname: lastname, password: hasedPass }
                     sendMail(email)
-                    res.send("OTP sent Successfully")
+                    res.status(200).send("OTP sent Successfully")
                 }
                 else if (findUserName != null) {
                     res.status(400).send("UserName alreay exist")
@@ -121,34 +116,35 @@ const authController = () => {
         },
         async verify(req, res) {
             try {
-                if (req.session.user != null) {
-                    const { otp } = req.body
-                    const oriOTP = await genOtp(req.session.user.email)
-                    const findEmail = await userModel.findOne({ email: req.session.user.email })
-                    const findUserName = await userModel.findOne({ username: req.session.user.username })
-                    if (otp == oriOTP && findEmail == null && findUserName == null) {
-                        //Create a user 
-                        const user = new userModel({
-                            username: req.session.user.username,
-                            email: req.session.user.email,
-                            password: req.session.user.password,
-                            firstname: req.session.user.firstname,
-                            lastname: req.session.user.lastname
-                        })
-                        user.save().then((user) => {
-                            res.status(200).send("Account created successfully")
-                        }).catch(err => { console.log(err) })
-                        await otpModel.deleteOne({ email: req.session.user.email })
-                    }
-                    else {
-                        if (findEmail != null && findUserName != null) {
-                            return res.send("User already been created")
-                        }
-                        res.send("Invalid OTP")
-                    }
+                const { userInfo, otp } = req.body
+                if (userInfo == "" || userInfo == null) {
+                    return res.status(400).send("Session Expaired")
+                }
+                //password hassing 
+                const salt = await bcrypt.genSalt(10)
+                const hasedPass = await bcrypt.hash(userInfo.password, salt)
+                const oriOTP = await genOtp(userInfo.email)
+                const findEmail = await userModel.findOne({ email: userInfo.email })
+                const findUserName = await userModel.findOne({ username: userInfo.username })
+                if (otp == oriOTP && findEmail == null && findUserName == null) {
+                    //Create a user 
+                    const user = new userModel({
+                        username: userInfo.username,
+                        email: userInfo.email,
+                        password: hasedPass,
+                        firstname: userInfo.firstname,
+                        lastname: userInfo.lastname
+                    })
+                    user.save().then((user) => {
+                        res.status(200).send("Account created successfully")
+                    }).catch(err => { console.log(err) })
+                    await otpModel.deleteOne({ email: userInfo.email })
                 }
                 else {
-                    res.status(400).send("session Expired")
+                    if (findEmail != null && findUserName != null) {
+                        return res.status(400).send("User already been created")
+                    }
+                    res.status(400).send("Invalid OTP")
                 }
             } catch (err) {
                 console.log("Internal server error")
