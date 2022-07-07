@@ -13,7 +13,7 @@
     justify-content: space-between;
 }
 
-.startingDiv>span{
+.startingDiv>span {
     color: red;
     font-weight: bold;
     font-size: 15px;
@@ -48,5 +48,15 @@
     margin-left: 10px;
     cursor: pointer;
     font-size: 13px;
+    font-weight: bold;
+}
+
+.Toastify__close-button {
+    display: none;
+}
+
+.Toastify__toast-body>div:last-child {
+    flex: 1 1;
+    color: #41cb32;
     font-weight: bold;
 }

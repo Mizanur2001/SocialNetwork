@@ -149,6 +149,19 @@ const authController = () => {
             } catch (err) {
                 console.log("Internal server error")
             }
+        },
+        async resendOtp(req, res) {
+            const { userInfo } = req.body
+            if (userInfo == null) {
+                return res.status(400).send("session expaired")
+            }
+
+            try {
+                sendMail(userInfo.email)
+                res.status(200).send("mail send Successfully")
+            } catch (error) {
+                console.log("Internal Server Error")
+            }
         }
     }
 }
