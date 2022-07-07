@@ -9,7 +9,7 @@ const Posts = () => {
         <div className='Posts'>
             {PostData.map((post, id) => {
                 return (
-                    <Post data={post} id={id} />
+                    <Post data={post} key={id} />
                 )
             })}
         </div>
