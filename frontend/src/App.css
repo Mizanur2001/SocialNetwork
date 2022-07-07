@@ -11,26 +11,27 @@
   --photo: #4CB256;
   --video: #4A4EB7;
   --location: #EF5757;
---shedule: #E1AE4A;
+  --shedule: #E1AE4A;
 }
 
-.App{
+.App {
   overflow: hidden;
   color: var(--black);
   background: #f3f3f3;
   padding: 1rem 1rem;
 }
 
-.blur{
+.blur {
   position: absolute;
   width: 22rem;
   height: 14rem;
   border-radius: 50%;
-  background: #d8a6f0;;
+  background: #d8a6f0;
+  ;
   filter: blur(72px);
 }
 
-.btn{
+.btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,16 +39,21 @@
   border: none;
   border-radius: 0.5rem;
   background: var(--buttonBg);
-  transition:all 100ms ease-out;
+  transition: all 100ms ease-out;
 }
 
-.btn:hover{
+.btn:hover {
   cursor: pointer;
   color: var(--orange);
   background: transparent;
   border: 2px solid var(--orange);
 }
 
-::-webkit-scrollbar{
+.btn:disabled {
+  background: silver;
+  pointer-events: none;
+}
+
+::-webkit-scrollbar {
   display: none;
 }

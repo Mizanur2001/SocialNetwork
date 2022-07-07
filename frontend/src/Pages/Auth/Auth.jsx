@@ -9,16 +9,17 @@ const Auth = () => {
 
     const [signUpError, setSignUpError] = useState({ status: false, message: "" })
     const [credentials, setCredentials] = useState({ username: '', email: '', firstname: '', lastname: '', password: '', cpassword: '' })
-
     const [islogin, setIsLogin] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const funcOnSubmitData = async (e) => {
+        setLoading(true)
         e.preventDefault()
 
         const API = axios.create({ baseURL: "http://localhost:5000" })
 
         const SignUp = async (formData) => { await API.post('/register', formData) }
-        SignUp(credentials).then(() => { localStorage.setItem('userInfo', JSON.stringify(credentials)); setSignUpError({ status: false, message: "" }); nevigate("/auth/verify") }).catch((err) => { setSignUpError({ status: true, message: err.response.data }) })
+        SignUp(credentials).then(() => { localStorage.setItem('userInfo', JSON.stringify(credentials)); setSignUpError({ status: false, message: "" }); nevigate("/auth/verify") }).catch((err) => { setSignUpError({ status: true, message: err.response.data }); setLoading(false) })
     }
 
     const onChange = (e) => {
@@ -60,7 +61,7 @@ const Auth = () => {
                 </div>
                 <div className='bottomPartSignUp'>
                     <span className='gradientText c-pointer' onClick={() => setIsLogin(false)}>Have an Accunt ? SingIn</span>
-                    <button className="btn SignUpBtn" type='submit'>SignUp</button>
+                    <button className="btn SignUpBtn" type='submit' disabled={loading}>{loading?"Loading...":"SignUp"}</button>
                 </div>
             </form>}
 

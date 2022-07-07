@@ -14,14 +14,16 @@ const Verify = () => {
     const [error, setError] = useState({ status: false, message: "" })
     const [otp, setOtp] = useState("")
     const [data, setData] = useState({ otp: "", userInfo: "" })
+    const [loading, setLoading] = useState(false)
 
     const handleChange = (otp) => { setError({ status: false, message: "" }); setOtp(otp); setData({ otp: otp, userInfo: JSON.parse(localStorage.getItem('userInfo')) }) }
 
     const submitForm = (e) => {
+        setLoading(true)
         e.preventDefault()
         const API = axios.create({ baseURL: "http://localhost:5000" })
         const verify = async (formData) => { await API.post('/verify', formData) }
-        verify(data).then(() => { localStorage.clear('userInfo'); nevigate("/auth") }).catch((err) => { setError({ status: true, message: err.response.data }) })
+        verify(data).then(() => { localStorage.clear('userInfo'); nevigate("/auth") }).catch((err) => { setError({ status: true, message: err.response.data }); setLoading(false) })
     }
 
     const resendOtp = () => {
@@ -64,7 +66,7 @@ const Verify = () => {
                 />
                 <div className='endDivOfForm'>
                     <span onClick={resendOtp}>Resend OTP</span>
-                    <button type='submit' className='btn veriBtn'>Verify</button>
+                    <button type='submit' className='btn veriBtn' disabled={loading}>{loading?"Loading...":"Verify"}</button>
                 </div>
             </form>
         </div>
