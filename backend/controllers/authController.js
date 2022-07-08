@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 import otpGenerator from 'otp-generator'
 import dotenv from 'dotenv'
 import nodeMailer from 'nodemailer'
+import jwt from 'jsonwebtoken'
 dotenv.config()
 
 const authController = () => {
@@ -94,22 +95,29 @@ const authController = () => {
         },
         async login(req, res) {
             try {
-                const { username, password } = req.body
-                if (!username || !password) {
+                const { lusername, lpassword } = req.body
+                if (!lusername || !lpassword) {
                     return res.status(400).send("All field Required")
                 }
-                const user = await userModel.findOne({ username: username })
+                const user = await userModel.findOne({ username: lusername })
                 if (user == null) {
                     return res.status(400).send("Invalid UserName or Password")
                 }
 
-                const compPass = await bcrypt.compare(password, user.password)
+                const compPass = await bcrypt.compare(lpassword, user.password)
 
                 if (!compPass) {
                     return res.status(400).send("Invalid UserName or Password")
                 }
 
-                res.status(200).json(user)
+                const data = {
+                    user: {
+                        id: user.id
+                    }
+                }
+                const jwt_Token = jwt.sign(data, process.env.SECTRE_KEY)
+                res.status(200).json(jwt_Token)
+
             } catch (error) {
                 console.log("Internal server error")
             }

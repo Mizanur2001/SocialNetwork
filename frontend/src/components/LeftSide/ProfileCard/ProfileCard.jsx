@@ -1,10 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import cover from '../../../img/cover1.jpg'
 import profile from '../../../img/sruti.jpg'
 import './ProfileCard.css'
 
 const ProfileCard = () => {
-
+    const Navigate = useNavigate()
     const ProfilePage = true
 
     return (
@@ -46,7 +47,7 @@ const ProfileCard = () => {
             </div>
 
             {!ProfilePage &&
-                <span className='ViewMyProfile'>
+                <span className='ViewMyProfile' onClick={() => Navigate("/profile")}>
                     My Profile
                 </span>
             }

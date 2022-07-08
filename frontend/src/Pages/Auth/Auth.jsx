@@ -6,17 +6,19 @@ import { useNavigate } from 'react-router-dom'
 
 const Auth = () => {
     const nevigate = useNavigate()
-
+    const URL = "http://localhost:5000"
     const [signUpError, setSignUpError] = useState({ status: false, message: "" })
+    const [signInError, setSignInError] = useState({ status: false, message: "" })
     const [credentials, setCredentials] = useState({ username: '', email: '', firstname: '', lastname: '', password: '', cpassword: '' })
-    const [islogin, setIsLogin] = useState(true)
+    const [loginCredential, setLoginCredential] = useState({ lusername: "", lpassword: "" })
+    const [islogin, setIsLogin] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    const funcOnSubmitData = async (e) => {
+    const funcOnSubmitSigninData = async (e) => {
         setLoading(true)
         e.preventDefault()
 
-        const API = axios.create({ baseURL: "http://localhost:5000" })
+        const API = axios.create({ baseURL: URL })
 
         const SignUp = async (formData) => { await API.post('/register', formData) }
         SignUp(credentials).then(() => { localStorage.setItem('userInfo', JSON.stringify(credentials)); setSignUpError({ status: false, message: "" }); nevigate("/auth/verify") }).catch((err) => { setSignUpError({ status: true, message: err.response.data }); setLoading(false) })
@@ -25,6 +27,23 @@ const Auth = () => {
     const onChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
         setSignUpError({ status: false, message: "" })
+        setLoginCredential({ ...loginCredential, [e.target.name]: e.target.value })
+        setSignInError({ message: "", status: false })
+    }
+
+    const funcSubmitLoginData = async (e) => {
+        setLoading(true)
+        e.preventDefault()
+        const API = axios.create({ baseURL: URL })
+        API.post('/login', loginCredential).then((response) => {
+            setLoading(false)
+            localStorage.setItem("authToken", response.data)
+            document.location.reload()
+            nevigate('/')
+        }).catch((error) => {
+            setSignInError({ message: error.response.data, status: true })
+            setLoading(false)
+        })
     }
 
     return (
@@ -42,7 +61,7 @@ const Auth = () => {
 
             {/* SignUP  */}
 
-            {islogin && <form className="SignUp" onSubmit={funcOnSubmitData}>
+            {islogin && <form className="SignUp" onSubmit={funcOnSubmitSigninData}>
                 <div className='startingDivSignUpForm'>
                     <h3 className='gradientText'>SignUp</h3>
                     {signUpError.status && <span>*{signUpError.message}</span>}
@@ -61,22 +80,25 @@ const Auth = () => {
                 </div>
                 <div className='bottomPartSignUp'>
                     <span className='gradientText c-pointer' onClick={() => setIsLogin(false)}>Have an Accunt ? SingIn</span>
-                    <button className="btn SignUpBtn" type='submit' disabled={loading}>{loading?"Loading...":"SignUp"}</button>
+                    <button className="btn SignUpBtn" type='submit' disabled={loading}>{loading ? "Loading..." : "SignUp"}</button>
                 </div>
             </form>}
 
             {/* SignIn  */}
 
-            {!islogin && <form action="#" className="SignUp">
-                <h3 className='gradientText'>Sign In</h3>
+            {!islogin && <form onSubmit={funcSubmitLoginData} className="SignUp">
+                <div className="startingDivSignUpForm">
+                    <h3 className='gradientText'>Sign In</h3>
+                    {signInError.status && <span>*{signInError.message}</span>}
+                </div>
                 <div className="InpUname">
-                    <input type="text" placeholder='User Name' name='username' className='InfoInput' autoComplete="off" />
-                    <input type="password" placeholder='Password' name='password' className='InfoInput' autoComplete="off" />
+                    <input type="text" placeholder='User Name' name='lusername' className='InfoInput' autoComplete="off" onChange={onChange} value={loginCredential.lusername} />
+                    <input type="password" placeholder='Password' name='lpassword' className='InfoInput' autoComplete="off" onChange={onChange} value={loginCredential.lpassword} />
                 </div>
 
                 <div className='bottomPartSignIn'>
                     <span className='gradientText c-pointer' onClick={() => setIsLogin(true)}>Dont Have an Accunt ? SingUp </span>
-                    <button className="btn SignUpBtn" type='submit'>Singn In</button>
+                    <button className="btn SignUpBtn" type='submit' disabled={loading}>{loading ? "Loading..." : "Singn In"}</button>
                 </div>
             </form>}
         </div>

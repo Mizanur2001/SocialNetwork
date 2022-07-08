@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './InfoCard.css'
 import { UilPen } from '@iconscout/react-unicons'
 import ProfileModal from '../../Models/ProfileModel/ProfileModel'
 
 const InfoCart = () => {
-
+    const Navigate = useNavigate()
     const [modelOpen, setModelOpen] = useState(false)
+
+    const funcLogout = () => {
+        localStorage.clear("authToken")
+        document.location.reload()
+        Navigate("/Auth")
+    }
 
     return (
         <div className='InfoCard'>
@@ -40,7 +47,7 @@ const InfoCart = () => {
                 </span>
             </div>
 
-            <div className="btn logoutBtn">
+            <div className="btn logoutBtn" onClick={funcLogout}>
                 Logout
             </div>
         </div>
