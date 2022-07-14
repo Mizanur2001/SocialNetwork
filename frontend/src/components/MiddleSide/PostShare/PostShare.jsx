@@ -22,7 +22,7 @@ const PostShare = () => {
         }
 
         if (desc.current.value === "" && image === null) {
-            return console.log("not done")
+            return -1
         }
         setLoading(true)
 
