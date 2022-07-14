@@ -6,6 +6,8 @@ const postController = () => {
     return {
         async createPost(req, res) {
             const newPost = new postModel(req.body)
+            //taking user id from jwt token
+            newPost.userId = req.user.user.id
             try {
                 const user = await userModel.findById(newPost.userId)
                 if (user != null) {
