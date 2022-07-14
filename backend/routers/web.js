@@ -20,7 +20,7 @@ const web = (app) => {
     app.delete('/post/:id', postController().deletePost)
     app.put('/post/:id/like', postController().likeDislikePost)
     app.get("/post/:id/timeline", postController().getTimeLine)
-    app.post('/upload/img', multerUpload.single('Photo'), uploadController().uploadimg)
+    app.post('/upload/img', jwtVerifyUser, multerUpload.single('Photo'), uploadController().uploadimg)
     app.post("/resendotp", authController().resendOtp)
 }
 
