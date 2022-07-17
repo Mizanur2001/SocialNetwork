@@ -5,6 +5,7 @@ const postModel = mongoose.Schema({
     desc: String,
     likes: [],
     image: String,
+    userInfo: {},
 }, { timestamps: true })
 
 export default mongoose.model("Posts", postModel)

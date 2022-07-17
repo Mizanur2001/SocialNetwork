@@ -10,6 +10,10 @@ import cors from 'cors'
 dotenv.config()
 const app = express()
 
+//serve public file
+app.use(express.static('public')); 
+app.use('/image', express.static('image'));
+
 
 //Middlewares
 app.use(bodyParser.json({ limit: "30mb", extended: true }));

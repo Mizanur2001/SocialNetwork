@@ -10,6 +10,8 @@ const postController = () => {
             newPost.userId = req.user.user.id
             try {
                 const user = await userModel.findById(newPost.userId)
+                const { firstname, lastname, username } = user
+                newPost.userInfo = { firstname, lastname, username }
                 if (user != null) {
                     await newPost.save();
                     res.send("Post Created")
@@ -88,7 +90,8 @@ const postController = () => {
             }
         },
         async getTimeLine(req, res) {
-            const userId = req.params.id
+            //taking user id from jwt token
+            const userId = req.user.user.id
             try {
                 const currentUserPosts = await postModel.find({ userId: userId })
                 const followingPosts = await userModel.aggregate([

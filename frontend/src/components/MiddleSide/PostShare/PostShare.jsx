@@ -44,7 +44,7 @@ const PostShare = () => {
             headers: {
                 "authToken": localStorage.getItem("authToken")
             }
-        }).then((Response) => { desc.current.value = ""; setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
+        }).then((Response) => { desc.current.value = ""; setLoading(false);window.location.reload() }).catch(err => { console.log(err); setLoading(false) })
     }
 
     return (
