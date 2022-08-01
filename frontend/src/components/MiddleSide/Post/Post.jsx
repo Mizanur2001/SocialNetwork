@@ -14,11 +14,12 @@ const Post = (data, id) => {
     const funcLiked = () => {
         const API = axios.create({ baseURL: `http://localhost:5000` })
         API.put(`/post/${data.data._id}/like`, { userId: localStorage.getItem('userId') }).then(Responce => {
-            setLiked((prev) => !prev)
-            liked ? setNoLiks((prev) => prev - 1) : setNoLiks((prev) => prev + 1)
         }).catch(err => console.log(err))
+
+        setLiked((prev) => !prev)
+        liked ? setNoLiks((prev) => prev - 1) : setNoLiks((prev) => prev + 1)
     }
-    
+
     return (
         <div className='Post'>
             <div className="detail">
