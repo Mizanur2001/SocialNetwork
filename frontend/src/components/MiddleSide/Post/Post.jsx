@@ -13,7 +13,11 @@ const Post = (data, id) => {
 
     const funcLiked = () => {
         const API = axios.create({ baseURL: `http://localhost:5000` })
-        API.put(`/post/${data.data._id}/like`, { userId: localStorage.getItem('userId') }).then(Responce => {
+        API.put(`/post/${data.data._id}/like`, { userId: localStorage.getItem('userId') }, {
+            headers: {
+                "authToken": localStorage.getItem("authToken")
+            }
+        }).then(Responce => {
         }).catch(err => console.log(err))
 
         setLiked((prev) => !prev)

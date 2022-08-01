@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import cover from '../../../img/cover1.jpg'
 import profile from '../../../img/sruti.jpg'
 import './ProfileCard.css'
 
 const ProfileCard = () => {
+    const [url, setUrl] = useState(window.location.href)
     const Navigate = useNavigate()
-    const ProfilePage = true
+    let ProfilePage = false
+    useEffect(() => {
+        setUrl(window.location.href)
+    }, [])
+    if (url.includes('/profile')) {
+        ProfilePage = true
+    }
 
     return (
         <div className='ProfileCard'>
