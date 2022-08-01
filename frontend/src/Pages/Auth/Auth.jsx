@@ -37,7 +37,9 @@ const Auth = () => {
         const API = axios.create({ baseURL: URL })
         API.post('/login', loginCredential).then((response) => {
             setLoading(false)
-            localStorage.setItem("authToken", response.data)
+            localStorage.setItem("authToken", response.data.token)
+            localStorage.setItem("userId", response.data.userId)
+            console.log(response.data)
             document.location.reload()
             nevigate('/')
         }).catch((error) => {

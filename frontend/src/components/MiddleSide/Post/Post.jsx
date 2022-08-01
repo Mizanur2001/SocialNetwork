@@ -3,19 +3,22 @@ import LikeImg from '../../../img/like.png'
 import NotlikeImg from '../../../img/notlike.png'
 import ShareImg from '../../../img/share.png'
 import CommentImg from '../../../img/comment.png'
+import axios from 'axios'
 import './Post.css'
 
 
 const Post = (data, id) => {
-    const [liked, setLiked] = useState(false)
+    const [liked, setLiked] = useState(data.data.likes.includes(localStorage.getItem('userId')))
+    const [noLikes, setNoLiks] = useState(data.data.likes.length)
+
     const funcLiked = () => {
-        if (liked) {
-            setLiked(false)
-        }
-        else{
-            setLiked(true)
-        }
+        const API = axios.create({ baseURL: `http://localhost:5000` })
+        API.put(`/post/${data.data._id}/like`, { userId: localStorage.getItem('userId') }).then(Responce => {
+            setLiked((prev) => !prev)
+            liked ? setNoLiks((prev) => prev - 1) : setNoLiks((prev) => prev + 1)
+        }).catch(err => console.log(err))
     }
+    
     return (
         <div className='Post'>
             <div className="detail">
@@ -32,7 +35,7 @@ const Post = (data, id) => {
                 <img src={ShareImg} alt="likeImg" />
             </div>
 
-            <span className='Likes'>{data.data.likes.length} likes</span>
+            <span className='Likes'>{noLikes} likes</span>
         </div>
     )
 }

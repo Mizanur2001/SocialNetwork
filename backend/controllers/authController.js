@@ -116,7 +116,11 @@ const authController = () => {
                     }
                 }
                 const jwt_Token = jwt.sign(data, process.env.SECTRE_KEY)
-                res.status(200).json(jwt_Token)
+                const userInfo = {
+                    token : jwt_Token,
+                    userId : user.id
+                }
+                res.status(200).json(userInfo)
 
             } catch (error) {
                 console.log("Internal server error")
