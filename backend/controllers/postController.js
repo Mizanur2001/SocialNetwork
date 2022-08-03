@@ -110,6 +110,18 @@ const postController = () => {
                 res.status(500).send(error)
             }
 
+        },
+        async getuserposts(req, res) {
+            const posts = await postModel.find()
+            //taking user id from jwt token
+            const userId = req.user.user.id
+            const userpost = []
+            posts.map(post => {
+                if (post.userId === userId) {
+                    userpost.push(post)
+                }
+            })
+            res.send(userpost.reverse())
         }
     }
 }

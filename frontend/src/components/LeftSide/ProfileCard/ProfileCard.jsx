@@ -8,6 +8,7 @@ import axios from 'axios'
 const ProfileCard = () => {
     const [url, setUrl] = useState(window.location.href)
     const [userInfo, setUserInfo] = useState("")
+    const [noOfPosts, setNoOfPosts] = useState([])
     const Navigate = useNavigate()
     let ProfilePage = false
     useEffect(() => {
@@ -19,16 +20,24 @@ const ProfileCard = () => {
             }
         }).then(Response => setUserInfo(Response.data)).catch(err => console.log(err))
 
-    }, [])
-    if (url.includes('/profile')) {
-        ProfilePage = true
+        axios.get('http://localhost:5000/post/user/posts', {
+            headers: {
+                "authToken": localStorage.getItem("authToken")
+            }
+        }).then(Response => setNoOfPosts(Response.data)).catch(err => console.log(err))
 
-        const API = axios.create({ baseURL: 'http://localhost:5000' })
-        API.get(`/user/${localStorage.getItem('userId')}`, {
+        const API1 = axios.create({ baseURL: 'http://localhost:5000' })
+        API1.get(`/user/${localStorage.getItem('userId')}`, {
             headers: {
                 "authToken": localStorage.getItem("authToken")
             }
         }).then(Response => setUserInfo(Response.data)).catch(err => console.log(err))
+
+    }, [])
+
+    if (url.includes('/profile')) {
+        ProfilePage = true
+
     }
 
     return (
@@ -59,7 +68,7 @@ const ProfileCard = () => {
                         <>
                             <div className="vl"></div>
                             <div className="follow">
-                                <span>6</span>
+                                <span>{noOfPosts.length}</span>
                                 <span>Posts</span>
                             </div>
                         </>
