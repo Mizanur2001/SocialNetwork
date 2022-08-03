@@ -17,6 +17,18 @@ const userController = () => {
                 res.status(400).send(error)
             }
         },
+        async getAllUser(req, res) {
+            try {
+                let users = await userModel.find();
+                users = users.map((user) => {
+                    const { password, ...otherDetails } = user._doc
+                    return otherDetails
+                })
+                res.status(200).json(users);
+            } catch (error) {
+                res.status(500).json(error);
+            }
+        },
         async updateUser(req, res) {
             const id = req.params.id
             const { _id, currentUserAdmin, password, email, isadmin, following, followers, username } = req.body

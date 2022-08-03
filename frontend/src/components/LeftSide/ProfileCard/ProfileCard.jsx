@@ -3,16 +3,32 @@ import { useNavigate } from 'react-router-dom'
 import cover from '../../../img/cover1.jpg'
 import profile from '../../../img/sruti.jpg'
 import './ProfileCard.css'
+import axios from 'axios'
 
 const ProfileCard = () => {
     const [url, setUrl] = useState(window.location.href)
+    const [userInfo, setUserInfo] = useState("")
     const Navigate = useNavigate()
     let ProfilePage = false
     useEffect(() => {
         setUrl(window.location.href)
+        const API = axios.create({ baseURL: 'http://localhost:5000' })
+        API.get(`/user/${localStorage.getItem('userId')}`, {
+            headers: {
+                "authToken": localStorage.getItem("authToken")
+            }
+        }).then(Response => setUserInfo(Response.data)).catch(err => console.log(err))
+
     }, [])
     if (url.includes('/profile')) {
         ProfilePage = true
+
+        const API = axios.create({ baseURL: 'http://localhost:5000' })
+        API.get(`/user/${localStorage.getItem('userId')}`, {
+            headers: {
+                "authToken": localStorage.getItem("authToken")
+            }
+        }).then(Response => setUserInfo(Response.data)).catch(err => console.log(err))
     }
 
     return (
@@ -22,7 +38,7 @@ const ProfileCard = () => {
                 <img src={profile} alt="profileImage" />
             </div>
             <div className="ProfileName">
-                <span>Sruti Dey</span>
+                <span>{userInfo === "" ? "Loading..." : userInfo.firstname} {userInfo.lastname}</span>
                 <span>Python Developer</span>
             </div>
 
@@ -30,12 +46,12 @@ const ProfileCard = () => {
                 <hr />
                 <div>
                     <div className="follow">
-                        <span>1</span>
+                        <span>{userInfo === "" ? "loading..." : userInfo.following.length}</span>
                         <span>Followings</span>
                     </div>
                     <div className="vl"></div>
                     <div className="follow">
-                        <span>8,598</span>
+                        <span>{userInfo === "" ? "loading..." : userInfo.followers.length}</span>
                         <span>Followers</span>
                     </div>
                     {

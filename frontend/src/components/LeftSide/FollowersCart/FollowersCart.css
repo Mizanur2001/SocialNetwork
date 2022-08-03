@@ -5,6 +5,8 @@
     gap: 1rem;
     width: 100%;
     font-size: 14px;
+    height: 400px;
+    overflow: scroll;
 }
 
 .follower{
