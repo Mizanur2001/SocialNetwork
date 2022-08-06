@@ -1,10 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './InfoCard.css'
 import { UilPen } from '@iconscout/react-unicons'
 import ProfileModal from '../../Models/ProfileModel/ProfileModel'
+import axios from 'axios'
 
 const InfoCart = () => {
+    const [userInfo, setUserInfo] = useState("")
+    useEffect(() => {
+        axios.get(`http://localhost:5000/user/${localStorage.getItem('userId')}`, {
+            headers: {
+                'authToken': localStorage.getItem('authToken')
+            }
+        }).then(Responce => setUserInfo(Responce.data)).catch(err => console.log(err))
+    }, [])
+
     const Navigate = useNavigate()
     const [modelOpen, setModelOpen] = useState(false)
 
@@ -26,7 +36,7 @@ const InfoCart = () => {
                     <b>Status </b>
                 </span>
                 <span>
-                    In Relationship
+                    {userInfo ? userInfo.relationship : "N/A"}
                 </span>
             </div>
 
@@ -35,7 +45,7 @@ const InfoCart = () => {
                     <b>Lives In </b>
                 </span>
                 <span>
-                    Kolkata
+                {userInfo ? userInfo.liverin : "N/A"}
                 </span>
             </div>
             <div className="Info">
@@ -43,7 +53,7 @@ const InfoCart = () => {
                     <b>Works at </b>
                 </span>
                 <span>
-                    TCS
+                {userInfo ? userInfo.worksat : "N/A"}
                 </span>
             </div>
 

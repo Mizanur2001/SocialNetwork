@@ -48,7 +48,9 @@ const ProfileCard = () => {
             </div>
             <div className="ProfileName">
                 <span>{userInfo === "" ? "Loading..." : userInfo.firstname} {userInfo.lastname}</span>
-                <span>Python Developer</span>
+                {!ProfilePage && <span>{userInfo.about ? userInfo.about.length >= 25 ? userInfo.about.slice(0, 25) + "..." : userInfo.about : "No Info :("}</span>}
+                {ProfilePage && <span>{userInfo.about ? userInfo.about : "No Info :("}</span>}
+
             </div>
 
             <div className="followStatus">
