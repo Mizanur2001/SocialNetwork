@@ -1,14 +1,24 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
-import profileImg from '../../../img/sruti.jpg'
+import profileImg from '../../../img/profilePic.jpg'
 import './PostShare.css'
 import { UilScenery, UilPlayCircle, UilLocationPoint, UilSchedule, UilTimes } from '@iconscout/react-unicons'
 
 const PostShare = () => {
     const [loading, setLoading] = useState(false)
     const [image, setImage] = useState(null)
+    const [userInfo, setUserInfo] = useState("")
     const imageRef = useRef()
     const desc = useRef()
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/user/${localStorage.getItem('userId')}`, {
+            headers: {
+                "authToken": localStorage.getItem("authToken")
+            }
+        }).then(Response => setUserInfo(Response.data)).catch(err => console.log(err))
+    }, [])
+
     const onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
@@ -44,12 +54,12 @@ const PostShare = () => {
             headers: {
                 "authToken": localStorage.getItem("authToken")
             }
-        }).then((Response) => { desc.current.value = ""; setLoading(false);window.location.reload() }).catch(err => { console.log(err); setLoading(false) })
+        }).then((Response) => { desc.current.value = ""; setLoading(false); window.location.reload() }).catch(err => { console.log(err); setLoading(false) })
     }
 
     return (
         <div className='PostShare'>
-            <img src={profileImg} alt="ProfileImg" />
+            <img src={userInfo.profilepicture ? process.env.REACT_APP_PUBLIC_IMG_FOLDER + userInfo.profilepicture : profileImg} alt="ProfileImg" />
             <div>
                 <input type="text" required={true} placeholder="what's Happening" ref={desc} />
                 <div className="PostOptions">
