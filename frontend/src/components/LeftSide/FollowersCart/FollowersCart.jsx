@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './FollowersCart.css'
-// import { Followers } from '../../../Data/FollowersData'
+import defaulfImg from '../../../img/profilePic.jpg'
 import axios from 'axios'
 
 const FollowersCart = () => {
-    const defaulfImg = 'https://img.freepik.com/free-vector/user-follower-icons-social-media-notification-icon-speech-bubbles-vector-illustration_56104-847.jpg?t=st=1659452798~exp=1659453398~hmac=37745248bd89ff166846ddbc085f2fb9dda32a3250a61cb5c2ed356333ff8ff9'
     const [allUser, setAllUsers] = useState([]);
     const [following, setfollowing] = useState([]);
 
@@ -52,7 +51,7 @@ const FollowersCart = () => {
                 return (
                     <div className="follower" key={id}>
                         <div>
-                            <img src={follower.img ? follower.img : defaulfImg} alt="followerImg" className='followerImg' />
+                            <img src={follower.profilepicture ? process.env.REACT_APP_PUBLIC_IMG_FOLDER + follower.profilepicture : defaulfImg} alt="followerImg" className='followerImg' />
                             <div className="name">
                                 <span>{follower.firstname} {follower.lastname}</span>
                                 <span>@{follower.username}</span>
