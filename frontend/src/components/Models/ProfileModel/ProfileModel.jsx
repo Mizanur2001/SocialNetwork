@@ -6,8 +6,9 @@ import axios from 'axios'
 import React from 'react'
 
 const ProfileModel = ({ modelOpen, setModelOpen }) => {
-
-    const [updateUser, setUpdateUser] = useState({ _id: localStorage.getItem('userId'), firstname: '', lastname: '', liverin: '', worksat: '', relationship: '', about: '' })
+    const [profileImage, setProfileImage] = useState("")
+    const [coverImage, setCoverImage] = useState("")
+    const [updateUser, setUpdateUser] = useState({ _id: localStorage.getItem('userId'), firstname: '', lastname: '', liverin: '', worksat: '', relationship: '', about: '', profilepicture: '', coverpicture: '' })
     const theme = useMantineTheme();
 
     const funcSubmit = (e) => {
@@ -17,14 +18,53 @@ const ProfileModel = ({ modelOpen, setModelOpen }) => {
         if (updateUser.worksat === "") { delete (updateUser.worksat) }
         if (updateUser.relationship === "") { delete (updateUser.relationship) }
         if (updateUser.about === "") { delete (updateUser.about) }
-        console.log(updateUser)
+        if (updateUser.profilepicture === '') { delete (updateUser.profilepicture) }
+        if (updateUser.coverpicture === '') { delete (updateUser.coverpicture) }
         e.preventDefault()
+
+        if (updateUser.profilepicture !== '') {
+            axios.post('http://localhost:5000/upload/img', profileImage, {
+                headers: {
+                    "authToken": localStorage.getItem("authToken"),
+                    "Content-Type": "multipart/form-data"
+                }
+            }).then(Response => console.log(Response)).catch(err => console.log(err))
+        }
+
+        if (updateUser.coverpicture !== '') {
+            console.log("holla")
+            axios.post('http://localhost:5000/upload/img', coverImage, {
+                headers: {
+                    "authToken": localStorage.getItem("authToken"),
+                    "Content-Type": "multipart/form-data"
+                }
+            }).then(Response => console.log(Response)).catch(err => console.log(err))
+        }
+
         axios.put(`http://localhost:5000/user/${localStorage.getItem('userId')}`, updateUser).then(Response => { setModelOpen(false) }).catch(err => console.log(err))
         document.location.reload()
     }
 
     const funcOnChange = (e) => {
         setUpdateUser({ ...updateUser, [e.target.name]: e.target.value })
+    }
+
+    const funcProfileImg = (e) => {
+        const formData = new FormData()
+        const fileName = Date.now() + "--ProfileImg--" +e.target.files[0].name 
+        formData.append('name', fileName)
+        formData.append('Photo', e.target.files[0])
+        setProfileImage(formData)
+        setUpdateUser({ ...updateUser, profilepicture: fileName })
+    }
+
+    const funcCoverImg = (e) => {
+        const formData = new FormData()
+        const fileName = Date.now() + "--CoverImg--" + e.target.files[0].name
+        formData.append('name', fileName)
+        formData.append('Photo', e.target.files[0])
+        setCoverImage(formData)
+        setUpdateUser({ ...updateUser, coverpicture: fileName })
     }
     return (
         <div>
@@ -56,9 +96,9 @@ const ProfileModel = ({ modelOpen, setModelOpen }) => {
 
                     <div className="PrfileImgUpdate">
                         <span>Profile Image</span>
-                        <input type="file" name='profileImg' />
+                        <input type="file" name='profileImg' onChange={funcProfileImg} />
                         <span>Cover Image</span>
-                        <input type="file" name="coverImg" />
+                        <input type="file" name="coverImg" onChange={funcCoverImg} />
                     </div>
                     <div className='bottomPartSignUp'>
                         <button className="btn SignUpBtn" type='submit'>Update</button>

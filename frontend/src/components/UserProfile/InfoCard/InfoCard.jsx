@@ -36,7 +36,7 @@ const InfoCart = () => {
                     <b>Status </b>
                 </span>
                 <span>
-                    {userInfo ? userInfo.relationship : "N/A"}
+                    {userInfo ? userInfo.relationship ? userInfo.relationship : "No Info :(" : "Loading..."}
                 </span>
             </div>
 
@@ -45,7 +45,7 @@ const InfoCart = () => {
                     <b>Lives In </b>
                 </span>
                 <span>
-                {userInfo ? userInfo.liverin : "N/A"}
+                    {userInfo ? userInfo.liverin ? userInfo.liverin : "No Info :(" : "Loading..."}
                 </span>
             </div>
             <div className="Info">
@@ -53,7 +53,7 @@ const InfoCart = () => {
                     <b>Works at </b>
                 </span>
                 <span>
-                {userInfo ? userInfo.worksat : "N/A"}
+                    {userInfo ? userInfo.worksat ? userInfo.worksat : "No Info :(" : "Loading..."}
                 </span>
             </div>
 

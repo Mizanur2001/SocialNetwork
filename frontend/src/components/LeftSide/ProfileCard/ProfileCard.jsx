@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import cover from '../../../img/cover1.jpg'
-import profile from '../../../img/sruti.jpg'
+import profile from '../../../img/profilePic.jpg'
 import './ProfileCard.css'
 import axios from 'axios'
 
@@ -43,8 +43,8 @@ const ProfileCard = () => {
     return (
         <div className='ProfileCard'>
             <div className="ProfileImages">
-                <img src={cover} alt="coverImage" />
-                <img src={profile} alt="profileImage" />
+                <img src={userInfo.coverpicture?process.env.REACT_APP_PUBLIC_IMG_FOLDER + userInfo.coverpicture:cover} alt="coverImage" />
+                <img src={userInfo.profilepicture?process.env.REACT_APP_PUBLIC_IMG_FOLDER + userInfo.profilepicture:profile} alt="profileImage" />
             </div>
             <div className="ProfileName">
                 <span>{userInfo === "" ? "Loading..." : userInfo.firstname} {userInfo.lastname}</span>
