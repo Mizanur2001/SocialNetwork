@@ -3,3 +3,23 @@
     flex-direction: column;
     gap: 1rem;
 }
+
+.loder{
+    align-self: center;
+}
+
+.noTimeLineDiv{
+    height: 100px;
+    width: 100%;
+}
+
+.noTimeLineDiv img{
+    height: 25rem;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.noTimeLineDiv h3{
+    text-align: center;
+}

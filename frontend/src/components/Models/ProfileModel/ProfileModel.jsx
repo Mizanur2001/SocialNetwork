@@ -41,7 +41,10 @@ const ProfileModel = ({ modelOpen, setModelOpen }) => {
             }).then(Response => console.log(Response)).catch(err => console.log(err))
         }
 
-        axios.put(`http://localhost:5000/user/${localStorage.getItem('userId')}`, updateUser).then(Response => { setModelOpen(false) }).catch(err => console.log(err))
+        axios.put(`http://localhost:5000/user/${localStorage.getItem('userId')}`, updateUser).then(Response => { setModelOpen(false); funcReload() }).catch(err => console.log(err))
+    }
+
+    const funcReload = ()=>{
         document.location.reload()
     }
 
