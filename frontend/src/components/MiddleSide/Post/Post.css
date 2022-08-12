@@ -38,3 +38,53 @@
 .postDesc{
     margin-top: 18px;
 }
+
+.commentBox{
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+}
+
+.commentBox h4{
+    margin-left: 10px;
+}
+
+.commentBox hr{
+    width: 100%;
+}
+
+.comment{
+    background-color: #ecd4f9;
+    border-radius: 15px;
+    padding: 8px;
+    margin-bottom: 4px;
+}
+
+.allComments{
+    /* border: 2px solid green; */
+    width: 100%;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.commentSender{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.commentSender input{
+    padding: 10px;
+    border: 2px solid orange;
+    outline: none;
+    width: 50%;
+    margin-top: 15px;
+    border-radius: 15px;
+    font-size: 17px;
+}
+
+.commentBtn{
+    padding: 12px;
+    margin-top: 15px;
+    margin-left: 5px;
+}
