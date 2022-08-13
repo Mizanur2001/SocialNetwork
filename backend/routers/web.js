@@ -22,6 +22,7 @@ const web = (app) => {
     app.put('/post/:id/like', jwtVerifyUser, postController().likeDislikePost)
     app.get("/post/:id/timeline", jwtVerifyUser, postController().getTimeLine)
     app.get('/post/user/posts', jwtVerifyUser, postController().getuserposts)
+    app.put('/post/:id/comment', postController().comments)
     app.post('/upload/img', jwtVerifyUser, multerUpload.single('Photo'), uploadController().uploadimg)
     app.post("/resendotp", authController().resendOtp)
 }
