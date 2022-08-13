@@ -39,6 +39,7 @@ const Auth = () => {
             setLoading(false)
             localStorage.setItem("authToken", response.data.token)
             localStorage.setItem("userId", response.data.userId)
+            localStorage.setItem("userName", response.data.userName)
             document.location.reload()
             nevigate('/')
         }).catch((error) => {

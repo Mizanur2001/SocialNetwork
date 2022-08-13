@@ -5,13 +5,14 @@ import ShareImg from '../../../img/share.png'
 import CommentImg from '../../../img/comment.png'
 import axios from 'axios'
 import './Post.css'
-import { comments } from '../../../Data/commentData'
 
 
-const Post = (data, id) => {
+const Post = (data) => {
     const [liked, setLiked] = useState(data.data.likes.includes(localStorage.getItem('userId')))
     const [noLikes, setNoLiks] = useState(data.data.likes.length)
     const [showComments, setShowComments] = useState(false)
+    const [commentInfo, setCommentInfo] = useState({ comment: "", username: localStorage.getItem('userName'), userId: localStorage.getItem('userId') })
+    const [loading, setLoading] = useState(false)
 
     const funcLiked = () => {
         const API = axios.create({ baseURL: `http://localhost:5000` })
@@ -19,8 +20,7 @@ const Post = (data, id) => {
             headers: {
                 "authToken": localStorage.getItem("authToken")
             }
-        }).then(Responce => {
-        }).catch(err => console.log(err))
+        }).then(Responce => { }).catch(err => console.log(err))
 
         setLiked((prev) => !prev)
         liked ? setNoLiks((prev) => prev - 1) : setNoLiks((prev) => prev + 1)
@@ -28,6 +28,21 @@ const Post = (data, id) => {
 
     const funcComment = () => {
         setShowComments((prev) => !prev)
+    }
+
+    const funcOnChange = (e) => {
+        setCommentInfo({ ...commentInfo, [e.target.name]: e.target.value })
+    }
+
+    const funcSendComment = () => {
+        if (commentInfo.comment !== '') {
+            setLoading(true)
+            axios.put(`http://localhost:5000/post/${data.data._id}/comment`, { commentInfo }, {
+                headers: {
+                    'authToken': localStorage.getItem('authToken')
+                }
+            }).then(Response => { setCommentInfo({ ...commentInfo, comment: "" }); setLoading(false) }).catch(err => console.log(err))
+        }
     }
 
     return (
@@ -49,22 +64,22 @@ const Post = (data, id) => {
             <span className='Likes'>{noLikes} likes</span>
 
             {showComments && <div className='commentBox'>
-                <h4>comments(5)</h4>
+                <h4>comments({data.data.comment ? data.data.comment.length : '0'})</h4>
                 <div className="allComments">
-                    {comments.map((comment, id) => {
+                    {data.data.comment ? data.data.comment.length === 0 ? <p style={{ marginLeft: '10px' }}>No Comments</p> : data.data.comment.map((comment, id) => {
                         return (
                             <div key={id}>
-                                <div className='comment'><b>{comment.userName} : </b>
+                                <div className='comment'><b>@{comment.username} : </b>
                                     {comment.comment}
                                 </div>
                             </div>
                         )
-                    })}
+                    }) : <p style={{ marginLeft: '10px' }}>No Comments</p>}
                 </div>
                 <hr />
                 <div className='commentSender'>
-                    <input type="text" autoComplete='off' placeholder='Enter you comment' />
-                    <button className='btn commentBtn'>Comment</button>
+                    <input type="text" autoComplete='off' placeholder='Enter you comment' onChange={funcOnChange} name='comment' value={commentInfo.comment} />
+                    <button className='btn commentBtn' onClick={funcSendComment} disabled={loading}>{loading ? "Uploading..." : 'Comment'}</button>
                 </div>
             </div>}
         </div>

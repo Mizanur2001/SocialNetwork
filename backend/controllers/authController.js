@@ -118,7 +118,8 @@ const authController = () => {
                 const jwt_Token = jwt.sign(data, process.env.SECTRE_KEY)
                 const userInfo = {
                     token : jwt_Token,
-                    userId : user.id
+                    userId : user.id,
+                    userName: user.username
                 }
                 res.status(200).json(userInfo)
 

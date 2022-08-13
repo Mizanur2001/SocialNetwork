@@ -125,9 +125,7 @@ const postController = () => {
         },
         async comments(req, res) {
             const postId = req.params.id
-            const comment = req.body.comment
-            const username = req.body.username
-            const userId = req.body.userId
+            const { comment, username, userId } = req.body.commentInfo
             try {
                 const user = await userModel.findById(userId)
                 if (user) {
