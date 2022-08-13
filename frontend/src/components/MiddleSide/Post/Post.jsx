@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LikeImg from '../../../img/like.png'
 import NotlikeImg from '../../../img/notlike.png'
 import ShareImg from '../../../img/share.png'
@@ -13,6 +13,14 @@ const Post = (data) => {
     const [showComments, setShowComments] = useState(false)
     const [commentInfo, setCommentInfo] = useState({ comment: "", username: localStorage.getItem('userName'), userId: localStorage.getItem('userId') })
     const [loading, setLoading] = useState(false)
+    const [allComments, setAllComments] = useState([])
+    const [noComment, setNoComment] = useState(0)
+
+    useEffect(() => {
+        data.data.comment ? setAllComments(data.data.comment) : setAllComments([])
+        data.data.comment ? setNoComment(data.data.comment.length) : setNoComment(0)
+        // eslint-disable-next-line
+    }, [])
 
     const funcLiked = () => {
         const API = axios.create({ baseURL: `http://localhost:5000` })
@@ -42,6 +50,14 @@ const Post = (data) => {
                     'authToken': localStorage.getItem('authToken')
                 }
             }).then(Response => { setCommentInfo({ ...commentInfo, comment: "" }); setLoading(false) }).catch(err => console.log(err))
+
+            const newComments = {
+                comment: commentInfo.comment, username: localStorage.getItem('userName'), userId: localStorage.getItem('userId')
+            }
+
+            setAllComments(oldComments => [...oldComments, newComments])
+            let commentNo = noComment
+            setNoComment(++commentNo)
         }
     }
 
@@ -61,12 +77,12 @@ const Post = (data) => {
                 <img src={ShareImg} alt="likeImg" />
             </div>
 
-            <span className='Likes'>{noLikes} likes</span>
+            <span className='Likes'>{noLikes} likes | {noComment} Comments</span>
 
             {showComments && <div className='commentBox'>
-                <h4>comments({data.data.comment ? data.data.comment.length : '0'})</h4>
+                <h4>comments({noComment})</h4>
                 <div className="allComments">
-                    {data.data.comment ? data.data.comment.length === 0 ? <p style={{ marginLeft: '10px' }}>No Comments</p> : data.data.comment.map((comment, id) => {
+                    {allComments.map((comment, id) => {
                         return (
                             <div key={id}>
                                 <div className='comment'><b>@{comment.username} : </b>
@@ -74,7 +90,7 @@ const Post = (data) => {
                                 </div>
                             </div>
                         )
-                    }) : <p style={{ marginLeft: '10px' }}>No Comments</p>}
+                    })}
                 </div>
                 <hr />
                 <div className='commentSender'>
