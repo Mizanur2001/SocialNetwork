@@ -125,3 +125,25 @@
     margin-top: 15px;
     margin-left: 5px;
 }
+
+.editPostContainer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.editPostContainer input{
+    padding: 10px;
+    border: 2px solid orange;
+    outline: none;
+    width: 50%;
+    border-radius: 15px;
+    font-size: 17px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.editBtn{
+    padding: 12px;
+    margin-left: 5px;
+}

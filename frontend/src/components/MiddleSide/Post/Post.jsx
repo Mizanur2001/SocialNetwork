@@ -17,6 +17,7 @@ const Post = (data) => {
     const [noComment, setNoComment] = useState(0)
     const [editDeleteDisplay, setEditDeleteDisplay] = useState(false)
     const [threeDotsDisplay, setThreeDotsDisplay] = useState(false)
+    const [editPostContainerDispaly, setEditPostContainerDispaly] = useState(false)
 
     useEffect(() => {
         data.data.comment ? setAllComments(data.data.comment) : setAllComments([])
@@ -69,7 +70,7 @@ const Post = (data) => {
     }
 
     const funcEdit = () => {
-        console.log("editing...")
+        setEditPostContainerDispaly(prev => !prev)
     }
 
     const funcDelete = () => {
@@ -142,6 +143,10 @@ const Post = (data) => {
                     <input type="text" autoComplete='off' placeholder='Enter you comment' onChange={funcOnChange} name='comment' value={commentInfo.comment} />
                     <button className='btn commentBtn' onClick={funcSendComment} disabled={loading}>{loading ? "Uploading..." : 'Comment'}</button>
                 </div>
+            </div>}
+            {editPostContainerDispaly && <div className='editPostContainer'>
+                <input type="text" placeholder='Edit Description' autoCapitalize='off' />
+                <button className='btn editBtn'>Edit </button>
             </div>}
         </div>
     )
