@@ -15,10 +15,13 @@ const Post = (data) => {
     const [loading, setLoading] = useState(false)
     const [allComments, setAllComments] = useState([])
     const [noComment, setNoComment] = useState(0)
+    const [editDeleteDisplay, setEditDeleteDisplay] = useState(false)
+    const [threeDotsDisplay, setThreeDotsDisplay] = useState(false)
 
     useEffect(() => {
         data.data.comment ? setAllComments(data.data.comment) : setAllComments([])
         data.data.comment ? setNoComment(data.data.comment.length) : setNoComment(0)
+        data.data.userId === localStorage.getItem('userId') ? setThreeDotsDisplay(true) : setThreeDotsDisplay(false)
         // eslint-disable-next-line
     }, [])
 
@@ -61,12 +64,54 @@ const Post = (data) => {
         }
     }
 
+    const funcEditDeleteContainer = () => {
+        setEditDeleteDisplay(prev => !prev)
+    }
+
+    const funcEdit = () => {
+        console.log("editing...")
+    }
+
+    const funcDelete = () => {
+        if (data.data.userId === localStorage.getItem('userId')) {
+            axios.delete(`http://localhost:5000/post/${data.data._id}`, {
+                headers: {
+                    'authToken': localStorage.getItem('authToken')
+                },
+                data: {
+                    userId: localStorage.getItem('userId')
+                }
+            }).then((Response) => { window.location.reload() }).catch(err => console.log(err))
+        }
+        else {
+            console.log("access denied")
+        }
+    }
+
+
+
     return (
         <div className='Post'>
             <div className="detail">
-                <span><b>{data.data.userInfo.firstname} {data.data.userInfo.lastname}</b> </span>
-                <span><b>@</b>{data.data.userInfo.username}</span>
-                <span className='postDesc'> {data.data.desc}</span>
+                <div className='nameUsernameThreedotsContainer'>
+                    <div className='nameUsernameContainer'>
+                        <span><b>{data.data.userInfo.firstname} {data.data.userInfo.lastname}</b> </span>
+                        <span><b>@</b>{data.data.userInfo.username}</span>
+                    </div>
+                    {threeDotsDisplay && <span className="material-symbols-outlined pointer" onClick={funcEditDeleteContainer}> more_vert </span>}
+                </div>
+                <div className='descDeleteEditContainer'>
+                    <span className='postDesc'> {data.data.desc}</span>
+                    {editDeleteDisplay && <div className='editDeleteContainer'>
+                        <span className="material-symbols-outlined pointer" onClick={funcEdit}>
+                            edit
+                        </span >
+                        <hr />
+                        <span className="material-symbols-outlined pointer" onClick={funcDelete}>
+                            delete
+                        </span>
+                    </div>}
+                </div>
             </div>
 
             {data.data.image && <img src={process.env.REACT_APP_PUBLIC_IMG_FOLDER + data.data.image} alt={data.data.image} />}

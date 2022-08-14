@@ -18,7 +18,7 @@ const web = (app) => {
     app.post('/post/', jwtVerifyUser, postController().createPost)
     app.get('/post/:id', postController().getPost)
     app.put('/post/:id', postController().updatePost)
-    app.delete('/post/:id', postController().deletePost)
+    app.delete('/post/:id', jwtVerifyUser, postController().deletePost)
     app.put('/post/:id/like', jwtVerifyUser, postController().likeDislikePost)
     app.get("/post/:id/timeline", jwtVerifyUser, postController().getTimeLine)
     app.get('/post/user/posts', jwtVerifyUser, postController().getuserposts)

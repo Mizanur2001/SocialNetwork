@@ -7,6 +7,43 @@
     gap: 1rem;
 }
 
+.nameUsernameContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.nameUsernameThreedotsContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.editDeleteContainer{
+    display: flex;
+    flex-direction: column;
+    height: 70px;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #f1f1f1;
+}
+
+.editDeleteContainer hr{
+    width: 90%;
+    opacity: 0.3;
+}
+
+.descDeleteEditContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .Post>img{
     width: 100%;
     max-height: 30rem;
