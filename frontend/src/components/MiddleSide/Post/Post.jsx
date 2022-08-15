@@ -73,6 +73,7 @@ const Post = (data) => {
 
     const funcEditDeleteContainer = () => {
         setEditDeleteDisplay(prev => !prev)
+        setEditPostContainerDispaly(false)
     }
 
     const funcEdit = () => {
@@ -109,8 +110,6 @@ const Post = (data) => {
                 }
             }).then(Response => { setEditPost({ ...editPost, desc: "" }, setPostDesc(editPost.desc)); setLoading(false) }).catch(err => console.log(err))
         }
-
-        console.log(data.data.desc)
     }
 
     return (
