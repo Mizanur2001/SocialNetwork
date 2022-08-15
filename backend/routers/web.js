@@ -17,7 +17,7 @@ const web = (app) => {
     app.put('/user/:id/unfollow', userController().unFollowUser)
     app.post('/post/', jwtVerifyUser, postController().createPost)
     app.get('/post/:id', postController().getPost)
-    app.put('/post/:id', postController().updatePost)
+    app.put('/post/:id', jwtVerifyUser, postController().updatePost)
     app.delete('/post/:id', jwtVerifyUser, postController().deletePost)
     app.put('/post/:id/like', jwtVerifyUser, postController().likeDislikePost)
     app.get("/post/:id/timeline", jwtVerifyUser, postController().getTimeLine)

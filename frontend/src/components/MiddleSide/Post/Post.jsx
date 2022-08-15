@@ -18,11 +18,17 @@ const Post = (data) => {
     const [editDeleteDisplay, setEditDeleteDisplay] = useState(false)
     const [threeDotsDisplay, setThreeDotsDisplay] = useState(false)
     const [editPostContainerDispaly, setEditPostContainerDispaly] = useState(false)
+    const [editPost, setEditPost] = useState({
+        userId: localStorage.getItem('userId'),
+        desc: ""
+    })
+    const [postDesc, setPostDesc] = useState([])
 
     useEffect(() => {
         data.data.comment ? setAllComments(data.data.comment) : setAllComments([])
         data.data.comment ? setNoComment(data.data.comment.length) : setNoComment(0)
         data.data.userId === localStorage.getItem('userId') ? setThreeDotsDisplay(true) : setThreeDotsDisplay(false)
+        setPostDesc(data.data.desc)
         // eslint-disable-next-line
     }, [])
 
@@ -90,6 +96,22 @@ const Post = (data) => {
     }
 
 
+    const funcOnChangeEditInput = (e) => {
+        setEditPost({ ...editPost, [e.target.name]: e.target.value })
+    }
+
+    const funcEditPost = () => {
+        if (editPost.desc !== '') {
+            setLoading(true)
+            axios.put(`http://localhost:5000/post/${data.data._id}`, { editPost }, {
+                headers: {
+                    'authToken': localStorage.getItem('authToken')
+                }
+            }).then(Response => { setEditPost({ ...editPost, desc: "" }, setPostDesc(editPost.desc)); setLoading(false) }).catch(err => console.log(err))
+        }
+
+        console.log(data.data.desc)
+    }
 
     return (
         <div className='Post'>
@@ -102,7 +124,7 @@ const Post = (data) => {
                     {threeDotsDisplay && <span className="material-symbols-outlined pointer" onClick={funcEditDeleteContainer}> more_vert </span>}
                 </div>
                 <div className='descDeleteEditContainer'>
-                    <span className='postDesc'> {data.data.desc}</span>
+                    <span className='postDesc'> {postDesc}</span>
                     {editDeleteDisplay && <div className='editDeleteContainer'>
                         <span className="material-symbols-outlined pointer" onClick={funcEdit}>
                             edit
@@ -114,6 +136,11 @@ const Post = (data) => {
                     </div>}
                 </div>
             </div>
+
+            {editPostContainerDispaly && <div className='editPostContainer'>
+                <input type="text" placeholder='Edit Description' name='desc' autoCapitalize='off' onChange={funcOnChangeEditInput} value={editPost.desc} />
+                <button className='btn editBtn' onClick={funcEditPost} disabled={loading}>{loading ? 'Uploading' : "Edit"} </button>
+            </div>}
 
             {data.data.image && <img src={process.env.REACT_APP_PUBLIC_IMG_FOLDER + data.data.image} alt={data.data.image} />}
 
@@ -143,10 +170,6 @@ const Post = (data) => {
                     <input type="text" autoComplete='off' placeholder='Enter you comment' onChange={funcOnChange} name='comment' value={commentInfo.comment} />
                     <button className='btn commentBtn' onClick={funcSendComment} disabled={loading}>{loading ? "Uploading..." : 'Comment'}</button>
                 </div>
-            </div>}
-            {editPostContainerDispaly && <div className='editPostContainer'>
-                <input type="text" placeholder='Edit Description' autoCapitalize='off' />
-                <button className='btn editBtn'>Edit </button>
             </div>}
         </div>
     )

@@ -35,14 +35,14 @@ const postController = () => {
         },
         async updatePost(req, res) {
             const postId = req.params.id
-            const { userId, likes } = req.body
             try {
+                const { userId, likes } = req.body.editPost
                 const post = await postModel.findById(postId)
                 if (post.userId === userId) {
                     if (likes || likes == '') {
                         return res.status(403).send("Action forbidden")
                     }
-                    await post.updateOne({ $set: req.body })
+                    await post.updateOne({ $set: req.body.editPost })
                     res.status(200).send("Post Updated Successfully")
                 }
                 else {
