@@ -4,3 +4,21 @@
     grid-template-columns: 18rem auto 20rem;
     gap: 1rem;
 }
+
+@media(max-width:1171px){
+    .Home{
+        grid-template-columns: 18rem auto 15rem;
+    }
+}
+
+@media(max-width:1093px){
+    .Home{
+        grid-template-columns: 18rem auto;
+    }
+}
+
+@media(max-width:837px){
+    .Home{
+        grid-template-columns: 0px auto;
+    }
+}

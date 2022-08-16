@@ -1,26 +1,40 @@
-.PostShare{
+.PostShare {
     display: flex;
-    gap:1rem;
+    gap: 1rem;
     background-color: var(--cardColor);
     padding: 1rem;
     border-radius: 1rem;
 }
 
-.PostShare>img{
+@media(max-width:837px) {
+    .PostShare {
+        margin-right: 15px;
+    }
+}
+
+.PostShare>img {
     height: 3rem;
     width: 3rem;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.PostShare>div{
+@media(max-width:363px) {
+    .PostShare>img {
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+
+}
+
+.PostShare>div {
     display: flex;
     flex-direction: column;
     width: 90%;
     gap: 1rem;
 }
 
-.PostShare>div>input{
+.PostShare>div>input {
     background-color: var(--inputColor);
     border-radius: 10px;
     padding: 10px;
@@ -29,12 +43,24 @@
     font-size: 17px;
 }
 
-.PostOptions{
+@media(max-width:383px) {
+    .PostShare>div>input {
+        font-size: 15px;
+    }
+}
+
+@media(max-width:355px){
+    .PostShare>div>input {
+        font-size: 11px;
+    }
+}
+
+.PostOptions {
     display: flex;
     justify-content: space-around;
 }
 
-.option{
+.option {
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
@@ -45,44 +71,66 @@
     cursor: pointer;
 }
 
-.PostOptions>div:nth-child(1){
+@media(max-width:563px) {
+    .option {
+        font-size: 0px;
+    }
+}
+
+@media(max-width:411px) {
+    .option {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+.PostOptions>div:nth-child(1) {
     color: var(--photo);
 }
 
-.PostOptions>div:nth-child(2){
+.PostOptions>div:nth-child(2) {
     color: var(--video);
 }
 
-.PostOptions>div:nth-child(3){
+.PostOptions>div:nth-child(3) {
     color: var(--location);
 }
 
-.PostOptions>div:nth-child(4){
+.PostOptions>div:nth-child(4) {
     color: var(--shedule);
 }
 
-.psBtn{
+.psBtn {
     padding: 5px;
     padding-left: 20px;
     padding-right: 20px;
     font-size: 12px;
 }
 
-.previewImage{
+@media(max-width:395px) {
+    .psBtn {
+        padding: 3px;
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: 11px;
+    }
+}
+
+.previewImage {
     position: relative;
 }
 
-.previewImage>svg{
+.previewImage>svg {
     position: absolute;
     top: 0.5rem;
-    cursor : pointer;
+    cursor: pointer;
     right: 1rem;
     color: orange;
 }
 
-.previewImage>img{
+.previewImage>img {
     width: 100%;
-    max-height: 30rem;
+    max-height: 90rem;
     object-fit: cover;
     border-radius: 0.5rem;
 }

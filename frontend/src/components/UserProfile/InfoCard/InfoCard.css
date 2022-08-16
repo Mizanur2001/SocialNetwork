@@ -1,4 +1,4 @@
-.InfoCard{
+.InfoCard {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -8,17 +8,24 @@
     width: 90%;
 }
 
-.InfoHead{
+@media(max-width:837px) {
+    .InfoCard {
+        width: auto;
+        margin-right: 15px;
+    }
+}
+
+.InfoHead {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.InfoHead>svg{
+.InfoHead>svg {
     cursor: pointer;
 }
 
-.logoutBtn{
+.logoutBtn {
     width: 7rem;
     height: 2rem;
     margin-top: 6rem;

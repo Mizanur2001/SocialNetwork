@@ -25,3 +25,9 @@
     height: 3rem;
     align-self: center;
 }
+
+@media(max-width:1093px){
+    .RightSide{
+        display: none;
+    }
+}

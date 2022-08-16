@@ -10,3 +10,28 @@
     flex-direction: column;
     gap: 1.5rem;
 }
+
+.userInfoContainer{
+    display: none;
+}
+
+@media(max-width:1171px){
+    .Profile{
+        grid-template-columns: 18rem auto 15rem;
+    }
+}
+
+@media(max-width:1093px){
+    .Profile{
+        grid-template-columns: 18rem auto;
+    }
+}
+
+@media(max-width:837px){
+    .Profile{
+        grid-template-columns: 0px auto;
+    }
+    .userInfoContainer{
+        display: block;
+    }
+}
