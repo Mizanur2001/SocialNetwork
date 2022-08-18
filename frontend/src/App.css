@@ -56,3 +56,35 @@
 ::-webkit-scrollbar {
   display: none;
 }
+
+
+
+.navbar {
+  position: sticky;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 1;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  right: 0px;
+  height: 70px;
+  background: rgb(255 255 255 / 80%);
+  display: none;
+}
+
+.material-symbols-outlined {
+  cursor: pointer;
+}
+
+.navigationIcons{
+  font-size: 35px;
+}
+
+@media(max-width:837px) {
+  .navbar {
+      display: flex;
+  }
+}
