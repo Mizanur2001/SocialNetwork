@@ -83,11 +83,11 @@
     justify-content: space-between;
 }
 
-.startingDivSignUpForm>h3{
+.startingDivSignUpForm>h3 {
     margin-left: 10px;
 }
 
-.startingDivSignUpForm>span{
+.startingDivSignUpForm>span {
     color: red;
     font-weight: bold;
     font-size: 15px;
@@ -138,4 +138,32 @@
 
 .c-pointer {
     cursor: pointer;
+}
+
+@media(max-width:1000px) {
+    .Auth {
+        flex-direction: column;
+        height: 100vh;
+        justify-content: space-evenly;
+    }
+
+    .LeftSide {
+        display: none;
+    }
+
+    .signUpMob {
+        width: 300px;
+    }
+
+    .InpName {
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .Password {
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+    }
 }

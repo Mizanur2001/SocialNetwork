@@ -63,7 +63,7 @@ const Auth = () => {
 
             {/* SignUP  */}
 
-            {islogin && <form className="SignUp" onSubmit={funcOnSubmitSigninData}>
+            {islogin && <form className="SignUp signUpMob" onSubmit={funcOnSubmitSigninData}>
                 <div className='startingDivSignUpForm'>
                     <h3 className='gradientText'>SignUp</h3>
                     {signUpError.status && <span>*{signUpError.message}</span>}

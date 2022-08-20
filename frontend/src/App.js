@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import './App.css';
 import Home from './Pages/Home/Home';
 import Profile from './Pages/Profile/Profile';
@@ -6,6 +7,10 @@ import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-ro
 import Verify from './Pages/Auth/Verify';
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false)
+  useEffect(() => {
+    setIsAuth(window.location.href.includes('/Auth'))
+  }, [])
   return (
     <Router>
       <div className="App">
@@ -18,7 +23,7 @@ function App() {
           <Route path='/Auth/verify' element={localStorage.getItem('authToken') ? <Navigate to='/' /> : <Verify />} />
         </Routes>
       </div>
-      <div className="navbar">
+      {!isAuth && <div className="navbar">
         <Link to='/profile'>
           <span className="material-symbols-outlined navigationIcons">
             supervised_user_circle
@@ -34,7 +39,7 @@ function App() {
             group
           </span>
         </Link>
-      </div>
+      </div>}
     </Router>
 
   );
