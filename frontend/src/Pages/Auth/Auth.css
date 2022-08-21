@@ -174,4 +174,8 @@
         gap: 0.75rem;
         width: 100%;
     }
+
+    .InfoInput{
+        padding: 14px
+    }
 }
