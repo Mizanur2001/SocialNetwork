@@ -8,7 +8,7 @@ import './Post.css'
 
 
 const Post = (data) => {
-    const URL = "http://localhost:5000"
+    const URL = process.env.REACT_APP_BACKEND_URL
     const [liked, setLiked] = useState(data.data.likes.includes(localStorage.getItem('userId')))
     const [noLikes, setNoLiks] = useState(data.data.likes.length)
     const [showComments, setShowComments] = useState(false)

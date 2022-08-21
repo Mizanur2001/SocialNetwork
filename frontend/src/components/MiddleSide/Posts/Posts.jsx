@@ -7,7 +7,7 @@ import noTimeLineImg from '../../../img/noTimeLine.jpg'
 
 
 const Posts = () => {
-    const URL = "http://localhost:5000"
+    const URL = process.env.REACT_APP_BACKEND_URL
     const [timelines, setTimelines] = useState([])
     const [loading, setLoading] = useState(true)
 

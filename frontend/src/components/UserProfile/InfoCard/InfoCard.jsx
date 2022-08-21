@@ -6,7 +6,7 @@ import ProfileModal from '../../Models/ProfileModel/ProfileModel'
 import axios from 'axios'
 
 const InfoCart = () => {
-    const URL = "http://localhost:5000"
+    const URL = process.env.REACT_APP_BACKEND_URL
     const [userInfo, setUserInfo] = useState("")
     useEffect(() => {
         axios.get(`${URL}/user/${localStorage.getItem('userId')}`, {
@@ -14,6 +14,7 @@ const InfoCart = () => {
                 'authToken': localStorage.getItem('authToken')
             }
         }).then(Responce => setUserInfo(Responce.data)).catch(err => console.log(err))
+        // eslint-disable-next-line
     }, [])
 
     const Navigate = useNavigate()

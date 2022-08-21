@@ -5,7 +5,7 @@ import './PostShare.css'
 import { UilScenery, UilPlayCircle, UilLocationPoint, UilSchedule, UilTimes } from '@iconscout/react-unicons'
 
 const PostShare = () => {
-    const url = "http://localhost:5000"
+    const url = process.env.REACT_APP_BACKEND_URL
     const [loading, setLoading] = useState(false)
     const [image, setImage] = useState(null)
     const [userInfo, setUserInfo] = useState("")
@@ -18,6 +18,7 @@ const PostShare = () => {
                 "authToken": localStorage.getItem("authToken")
             }
         }).then(Response => setUserInfo(Response.data)).catch(err => console.log(err))
+        // eslint-disable-next-line
     }, [])
 
     const onImageChange = (event) => {

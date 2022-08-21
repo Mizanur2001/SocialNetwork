@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Auth = () => {
     const nevigate = useNavigate()
-    const URL = "http://localhost:5000"
+    const URL = process.env.REACT_APP_BACKEND_URL
     const [signUpError, setSignUpError] = useState({ status: false, message: "" })
     const [signInError, setSignInError] = useState({ status: false, message: "" })
     const [credentials, setCredentials] = useState({ username: '', email: '', firstname: '', lastname: '', password: '', cpassword: '' })

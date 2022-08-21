@@ -6,7 +6,7 @@ import './ProfileCard.css'
 import axios from 'axios'
 
 const ProfileCard = () => {
-    const URL = "http://localhost:5000"
+    const URL = process.env.REACT_APP_BACKEND_URL
     const [url, setUrl] = useState(window.location.href)
     const [userInfo, setUserInfo] = useState("")
     const [noOfPosts, setNoOfPosts] = useState([])
@@ -33,7 +33,7 @@ const ProfileCard = () => {
                 "authToken": localStorage.getItem("authToken")
             }
         }).then(Response => setUserInfo(Response.data)).catch(err => console.log(err))
-
+        // eslint-disable-next-line
     }, [])
 
     if (url.includes('/profile')) {

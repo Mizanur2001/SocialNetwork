@@ -6,7 +6,7 @@ import { Loader } from '@mantine/core';
 import axios from 'axios'
 
 const FollowersCart = () => {
-    const URL = "http://localhost:5000"
+    const URL = process.env.REACT_APP_BACKEND_URL
     const [allUser, setAllUsers] = useState([]);
     const [following, setfollowing] = useState([]);
     const [loading, setLoading] = useState(false)
@@ -24,6 +24,7 @@ const FollowersCart = () => {
                 'authToken': localStorage.getItem('authToken')
             }
         }).then(Responce => setfollowing(Responce.data.following)).catch(err => console.log(err))
+        // eslint-disable-next-line
     }, [])
 
     const funcFollowUnfollow = (id) => {

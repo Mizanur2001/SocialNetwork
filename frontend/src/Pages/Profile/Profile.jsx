@@ -8,7 +8,7 @@ import RightSide from '../../components/RightSideF/RightSide/RightSide'
 import axios from 'axios'
 
 const Profile = () => {
-    const URL = "http://localhost:5000"
+    const URL = process.env.REACT_APP_BACKEND_URL
     const [userposts, setUserposts] = useState([])
 
     useEffect(() => {
@@ -17,6 +17,7 @@ const Profile = () => {
                 "authToken": localStorage.getItem("authToken")
             }
         }).then(Response => setUserposts(Response.data)).catch(err => console.log(err))
+        // eslint-disable-next-line
     }, [])
 
     return (

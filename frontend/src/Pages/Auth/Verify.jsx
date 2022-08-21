@@ -9,7 +9,7 @@ import otpSendImg from '../../img/otpSend.png'
 
 
 const Verify = () => {
-    const URL = "http://localhost:5000"
+    const URL = process.env.REACT_APP_BACKEND_URL
     const notify = () => toast.success("OTP Sent Successfully");
     const nevigate = useNavigate()
     const [error, setError] = useState({ status: false, message: "" })

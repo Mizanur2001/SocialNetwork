@@ -5,7 +5,7 @@ import axios from 'axios'
 import React from 'react'
 
 const ProfileModel = ({ modelOpen, setModelOpen }) => {
-    const URL = "http://localhost:5000"
+    const URL = process.env.REACT_APP_BACKEND_URL
     const [profileImage, setProfileImage] = useState("")
     const [coverImage, setCoverImage] = useState("")
     const [updateUser, setUpdateUser] = useState({ _id: localStorage.getItem('userId'), firstname: '', lastname: '', liverin: '', worksat: '', relationship: '', about: '', profilepicture: '', coverpicture: '' })
