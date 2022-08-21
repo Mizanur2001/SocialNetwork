@@ -9,6 +9,7 @@ import otpSendImg from '../../img/otpSend.png'
 
 
 const Verify = () => {
+    const URL = "http://localhost:5000"
     const notify = () => toast.success("OTP Sent Successfully");
     const nevigate = useNavigate()
     const [error, setError] = useState({ status: false, message: "" })
@@ -21,14 +22,14 @@ const Verify = () => {
     const submitForm = (e) => {
         setLoading(true)
         e.preventDefault()
-        const API = axios.create({ baseURL: "http://localhost:5000" })
+        const API = axios.create({ baseURL: URL })
         const verify = async (formData) => { await API.post('/verify', formData) }
         verify(data).then(() => { localStorage.clear('userInfo'); nevigate("/auth") }).catch((err) => { setError({ status: true, message: err.response.data }); setLoading(false) })
     }
 
     const resendOtp = () => {
 
-        const API = axios.create({ baseURL: "http://localhost:5000" })
+        const API = axios.create({ baseURL: URL })
         const reSendOtp = async (formData) => { await API.post('/resendotp', formData) }
         reSendOtp({ userInfo: JSON.parse(localStorage.getItem('userInfo')) }).then(() => { notify() }).catch(err => { setError({ status: true, message: err.response.data }) })
     }
@@ -66,7 +67,7 @@ const Verify = () => {
                 />
                 <div className='endDivOfForm'>
                     <span onClick={resendOtp}>Resend OTP</span>
-                    <button type='submit' className='btn veriBtn' disabled={loading}>{loading?"Loading...":"Verify"}</button>
+                    <button type='submit' className='btn veriBtn' disabled={loading}>{loading ? "Loading..." : "Verify"}</button>
                 </div>
             </form>
         </div>

@@ -8,6 +8,7 @@ import './Post.css'
 
 
 const Post = (data) => {
+    const URL = "http://localhost:5000"
     const [liked, setLiked] = useState(data.data.likes.includes(localStorage.getItem('userId')))
     const [noLikes, setNoLiks] = useState(data.data.likes.length)
     const [showComments, setShowComments] = useState(false)
@@ -33,7 +34,7 @@ const Post = (data) => {
     }, [])
 
     const funcLiked = () => {
-        const API = axios.create({ baseURL: `http://localhost:5000` })
+        const API = axios.create({ baseURL: `${URL}` })
         API.put(`/post/${data.data._id}/like`, { userId: localStorage.getItem('userId') }, {
             headers: {
                 "authToken": localStorage.getItem("authToken")
@@ -55,7 +56,7 @@ const Post = (data) => {
     const funcSendComment = () => {
         if (commentInfo.comment !== '') {
             setLoading(true)
-            axios.put(`http://localhost:5000/post/${data.data._id}/comment`, { commentInfo }, {
+            axios.put(`${URL}/post/${data.data._id}/comment`, { commentInfo }, {
                 headers: {
                     'authToken': localStorage.getItem('authToken')
                 }
@@ -82,7 +83,7 @@ const Post = (data) => {
 
     const funcDelete = () => {
         if (data.data.userId === localStorage.getItem('userId')) {
-            axios.delete(`http://localhost:5000/post/${data.data._id}`, {
+            axios.delete(`${URL}/post/${data.data._id}`, {
                 headers: {
                     'authToken': localStorage.getItem('authToken')
                 },
@@ -104,7 +105,7 @@ const Post = (data) => {
     const funcEditPost = () => {
         if (editPost.desc !== '') {
             setLoading(true)
-            axios.put(`http://localhost:5000/post/${data.data._id}`, { editPost }, {
+            axios.put(`${URL}/post/${data.data._id}`, { editPost }, {
                 headers: {
                     'authToken': localStorage.getItem('authToken')
                 }

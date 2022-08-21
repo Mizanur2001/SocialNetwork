@@ -6,9 +6,10 @@ import ProfileModal from '../../Models/ProfileModel/ProfileModel'
 import axios from 'axios'
 
 const InfoCart = () => {
+    const URL = "http://localhost:5000"
     const [userInfo, setUserInfo] = useState("")
     useEffect(() => {
-        axios.get(`http://localhost:5000/user/${localStorage.getItem('userId')}`, {
+        axios.get(`${URL}/user/${localStorage.getItem('userId')}`, {
             headers: {
                 'authToken': localStorage.getItem('authToken')
             }

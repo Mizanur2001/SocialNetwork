@@ -8,10 +8,11 @@ import RightSide from '../../components/RightSideF/RightSide/RightSide'
 import axios from 'axios'
 
 const Profile = () => {
+    const URL = "http://localhost:5000"
     const [userposts, setUserposts] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/post/user/posts', {
+        axios.get(`${URL}/post/user/posts`, {
             headers: {
                 "authToken": localStorage.getItem("authToken")
             }

@@ -7,13 +7,14 @@ import noTimeLineImg from '../../../img/noTimeLine.jpg'
 
 
 const Posts = () => {
+    const URL = "http://localhost:5000"
     const [timelines, setTimelines] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
 
         if (localStorage.getItem('authToken')) {
-            axios.get(`http://localhost:5000/post/62bc18c7d70675a780966bfc/timeline`, {
+            axios.get(`${URL}/post/62bc18c7d70675a780966bfc/timeline`, {
                 headers: {
                     "authToken": localStorage.getItem("authToken")
                 }

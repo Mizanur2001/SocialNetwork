@@ -5,6 +5,7 @@ import './PostShare.css'
 import { UilScenery, UilPlayCircle, UilLocationPoint, UilSchedule, UilTimes } from '@iconscout/react-unicons'
 
 const PostShare = () => {
+    const url = "http://localhost:5000"
     const [loading, setLoading] = useState(false)
     const [image, setImage] = useState(null)
     const [userInfo, setUserInfo] = useState("")
@@ -12,7 +13,7 @@ const PostShare = () => {
     const desc = useRef()
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/user/${localStorage.getItem('userId')}`, {
+        axios.get(`${url}/user/${localStorage.getItem('userId')}`, {
             headers: {
                 "authToken": localStorage.getItem("authToken")
             }
@@ -42,7 +43,7 @@ const PostShare = () => {
             newPost.image = fileName
             formData.append('name', fileName)
             formData.append('Photo', image)
-            axios.post('http://localhost:5000/upload/img', formData, {
+            axios.post(`${url}/upload/img`, formData, {
                 headers: {
                     "authToken": localStorage.getItem("authToken"),
                     "Content-Type": "multipart/form-data"
@@ -50,7 +51,7 @@ const PostShare = () => {
             }).then((Response) => { setImage(null); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
         }
 
-        axios.post('http://localhost:5000/post/', newPost, {
+        axios.post(`${url}/post/`, newPost, {
             headers: {
                 "authToken": localStorage.getItem("authToken")
             }

@@ -6,6 +6,7 @@ import './ProfileCard.css'
 import axios from 'axios'
 
 const ProfileCard = () => {
+    const URL = "http://localhost:5000"
     const [url, setUrl] = useState(window.location.href)
     const [userInfo, setUserInfo] = useState("")
     const [noOfPosts, setNoOfPosts] = useState([])
@@ -13,20 +14,20 @@ const ProfileCard = () => {
     let ProfilePage = false
     useEffect(() => {
         setUrl(window.location.href)
-        const API = axios.create({ baseURL: 'http://localhost:5000' })
+        const API = axios.create({ baseURL: `${URL}` })
         API.get(`/user/${localStorage.getItem('userId')}`, {
             headers: {
                 "authToken": localStorage.getItem("authToken")
             }
         }).then(Response => setUserInfo(Response.data)).catch(err => console.log(err))
 
-        axios.get('http://localhost:5000/post/user/posts', {
+        axios.get(`${URL}/post/user/posts`, {
             headers: {
                 "authToken": localStorage.getItem("authToken")
             }
         }).then(Response => setNoOfPosts(Response.data)).catch(err => console.log(err))
 
-        const API1 = axios.create({ baseURL: 'http://localhost:5000' })
+        const API1 = axios.create({ baseURL: `${URL}` })
         API1.get(`/user/${localStorage.getItem('userId')}`, {
             headers: {
                 "authToken": localStorage.getItem("authToken")
@@ -43,8 +44,8 @@ const ProfileCard = () => {
     return (
         <div className='ProfileCard'>
             <div className="ProfileImages">
-                <img src={userInfo.coverpicture?process.env.REACT_APP_PUBLIC_IMG_FOLDER + userInfo.coverpicture:cover} alt="coverImage" />
-                <img src={userInfo.profilepicture?process.env.REACT_APP_PUBLIC_IMG_FOLDER + userInfo.profilepicture:profile} alt="profileImage" />
+                <img src={userInfo.coverpicture ? process.env.REACT_APP_PUBLIC_IMG_FOLDER + userInfo.coverpicture : cover} alt="coverImage" />
+                <img src={userInfo.profilepicture ? process.env.REACT_APP_PUBLIC_IMG_FOLDER + userInfo.profilepicture : profile} alt="profileImage" />
             </div>
             <div className="ProfileName">
                 <span>{userInfo === "" ? "Loading..." : userInfo.firstname} {userInfo.lastname}</span>

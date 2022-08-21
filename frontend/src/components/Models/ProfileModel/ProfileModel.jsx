@@ -2,10 +2,10 @@ import { Modal, useMantineTheme } from "@mantine/core";
 import './ProfileModel.css'
 import { useState } from 'react'
 import axios from 'axios'
-
 import React from 'react'
 
 const ProfileModel = ({ modelOpen, setModelOpen }) => {
+    const URL = "http://localhost:5000"
     const [profileImage, setProfileImage] = useState("")
     const [coverImage, setCoverImage] = useState("")
     const [updateUser, setUpdateUser] = useState({ _id: localStorage.getItem('userId'), firstname: '', lastname: '', liverin: '', worksat: '', relationship: '', about: '', profilepicture: '', coverpicture: '' })
@@ -23,7 +23,7 @@ const ProfileModel = ({ modelOpen, setModelOpen }) => {
         e.preventDefault()
 
         if (updateUser.profilepicture !== '') {
-            axios.post('http://localhost:5000/upload/img', profileImage, {
+            axios.post(`${URL}/upload/img`, profileImage, {
                 headers: {
                     "authToken": localStorage.getItem("authToken"),
                     "Content-Type": "multipart/form-data"
@@ -33,7 +33,7 @@ const ProfileModel = ({ modelOpen, setModelOpen }) => {
 
         if (updateUser.coverpicture !== '') {
             console.log("holla")
-            axios.post('http://localhost:5000/upload/img', coverImage, {
+            axios.post(`${URL}/upload/img`, coverImage, {
                 headers: {
                     "authToken": localStorage.getItem("authToken"),
                     "Content-Type": "multipart/form-data"
@@ -41,10 +41,10 @@ const ProfileModel = ({ modelOpen, setModelOpen }) => {
             }).then(Response => console.log(Response)).catch(err => console.log(err))
         }
 
-        axios.put(`http://localhost:5000/user/${localStorage.getItem('userId')}`, updateUser).then(Response => { setModelOpen(false); funcReload() }).catch(err => console.log(err))
+        axios.put(`${URL}/user/${localStorage.getItem('userId')}`, updateUser).then(Response => { setModelOpen(false); funcReload() }).catch(err => console.log(err))
     }
 
-    const funcReload = ()=>{
+    const funcReload = () => {
         document.location.reload()
     }
 
@@ -54,7 +54,7 @@ const ProfileModel = ({ modelOpen, setModelOpen }) => {
 
     const funcProfileImg = (e) => {
         const formData = new FormData()
-        const fileName = Date.now() + "--ProfileImg--" +e.target.files[0].name 
+        const fileName = Date.now() + "--ProfileImg--" + e.target.files[0].name
         formData.append('name', fileName)
         formData.append('Photo', e.target.files[0])
         setProfileImage(formData)
