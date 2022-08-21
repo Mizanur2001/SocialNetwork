@@ -9,6 +9,21 @@
     overflow: scroll;
 }
 
+.seach{
+    display: none;
+}
+
+@media(max-width:837px){
+    .FollowersCarts{
+        height: 100vh;
+        position: relative;
+    }
+
+    .seach{
+        display: flex;
+    }
+}
+
 .follower{
     display: flex;
     align-items: center;

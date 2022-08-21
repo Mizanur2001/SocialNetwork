@@ -52,8 +52,8 @@ const Verify = () => {
                     inputStyle={{
                         border: "1px solid transparent",
                         borderRadius: "8px",
-                        width: "54px",
-                        height: "54px",
+                        width: "40px",
+                        height: "40px",
                         fontSize: "20px",
                         color: "#000",
                         fontWeight: "bold",

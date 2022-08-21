@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import './FollowersCart.css'
 import defaulfImg from '../../../img/profilePic.jpg'
+import Seach from '../LogoSearch/LogoSearch'
+import { Loader } from '@mantine/core';
 import axios from 'axios'
 
 const FollowersCart = () => {
     const [allUser, setAllUsers] = useState([]);
     const [following, setfollowing] = useState([]);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
         axios.get('http://localhost:5000/users/', {
             headers: {
                 'authToken': localStorage.getItem('authToken')
             }
-        }).then(Responce => setAllUsers(Responce.data)).catch(err => console.log(err))
+        }).then(Responce => { setAllUsers(Responce.data); setLoading(false) }).catch(err => console.log(err))
 
         axios.get(`http://localhost:5000/user/${localStorage.getItem('userId')}`, {
             headers: {
@@ -46,7 +50,13 @@ const FollowersCart = () => {
 
     return (
         <div className='FollowersCarts'>
+            <div className="seach">
+                <Seach data={allUser} />
+            </div>
             <h3>All Users</h3>
+            {loading && <div className='loder'>
+                <Loader color="grape" />
+            </div>}
             {allUser.map((follower, id) => {
                 return (
                     <div className="follower" key={id}>

@@ -145,6 +145,14 @@
         flex-direction: column;
         height: 100vh;
         justify-content: space-evenly;
+        background-image: url('../../img/login.png');
+        background-repeat: no-repeat;
+        object-fit: cover;
+        background-position:top center;
+    }
+
+    .SignUp{
+        background: rgba(255, 255, 255, 0.85);
     }
 
     .LeftSide {

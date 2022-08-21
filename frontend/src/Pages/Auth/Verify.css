@@ -6,6 +6,21 @@
     justify-content: center;
 }
 
+@media(max-width:1000px) {
+    .Verify {
+        background-image: url('../../img/otpSend.png');
+        background-repeat: no-repeat;
+        object-fit: cover;
+        border-image-width: 10px;
+        flex-direction: column;
+        background-position:top center;
+    }
+
+    .Verify img {
+        display: none;
+    }
+}
+
 .startingDiv {
     display: flex;
     width: 100%;
@@ -28,6 +43,19 @@
     height: 13rem;
     align-items: center;
     justify-content: center;
+}
+
+@media(max-width:1000px) {
+    .Form {
+        background: rgb(239 235 235 / 80%);
+        width: 350px;
+    }
+}
+
+@media(max-width:400px) {
+    .Form {
+        width: 300px;
+    }
 }
 
 .veriBtn {
