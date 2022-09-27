@@ -19,7 +19,7 @@
 
 @media(max-width:837px){
     .Home{
-        grid-template-columns: 0px auto;
+        grid-template-columns: auto;
         height: 100vh;
     }
 }
