@@ -29,7 +29,7 @@
 
 @media(max-width:837px){
     .Profile{
-        grid-template-columns: 0px auto;
+        grid-template-columns: auto;
     }
     .userInfoContainer{
         display: block;

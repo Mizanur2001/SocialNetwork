@@ -5,3 +5,9 @@
     align-items: center;
     overflow: auto;
 }
+
+@media(max-width:837px) {
+    .ProfileSide {
+        display: none;
+    }
+}
