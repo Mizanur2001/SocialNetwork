@@ -18,7 +18,7 @@
   overflow: hidden;
   color: var(--black);
   background: #f3f3f3;
-  padding: 2px;
+  padding: 1rem;
 }
 
 .blur {
@@ -86,5 +86,8 @@
 @media(max-width:837px) {
   .navbar {
       display: flex;
+  }
+  .App{
+    padding: 2px;
   }
 }
