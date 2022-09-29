@@ -6,12 +6,14 @@ import React from 'react'
 
 const ProfileModel = ({ modelOpen, setModelOpen }) => {
     const URL = process.env.REACT_APP_BACKEND_URL
+    const [loading, setLoading] = useState(false)
     const [profileImage, setProfileImage] = useState("")
     const [coverImage, setCoverImage] = useState("")
     const [updateUser, setUpdateUser] = useState({ _id: localStorage.getItem('userId'), firstname: '', lastname: '', liverin: '', worksat: '', relationship: '', about: '', profilepicture: '', coverpicture: '' })
     const theme = useMantineTheme();
 
     const funcSubmit = (e) => {
+        setLoading(true)
         if (updateUser.firstname === "") { delete (updateUser.firstname) }
         if (updateUser.lastname === "") { delete (updateUser.lastname) }
         if (updateUser.liverin === "") { delete (updateUser.liverin) }
@@ -22,26 +24,35 @@ const ProfileModel = ({ modelOpen, setModelOpen }) => {
         if (updateUser.coverpicture === '') { delete (updateUser.coverpicture) }
         e.preventDefault()
 
-        if (updateUser.profilepicture !== '') {
+        if (updateUser.profilepicture) {
+            console.log("holla1")
             axios.post(`${URL}/upload/img`, profileImage, {
                 headers: {
                     "authToken": localStorage.getItem("authToken"),
                     "Content-Type": "multipart/form-data"
                 }
-            }).then(Response => console.log(Response)).catch(err => console.log(err))
+            }).then(Response => { updateUserServer(); setLoading(false) }).catch(err => console.log(err))
         }
 
-        if (updateUser.coverpicture !== '') {
-            console.log("holla")
+        if (updateUser.coverpicture) {
+            console.log("holla2")
             axios.post(`${URL}/upload/img`, coverImage, {
                 headers: {
                     "authToken": localStorage.getItem("authToken"),
                     "Content-Type": "multipart/form-data"
                 }
-            }).then(Response => console.log(Response)).catch(err => console.log(err))
+            }).then(Response => { updateUserServer(); setLoading(false) }).catch(err => console.log(err))
         }
 
-        axios.put(`${URL}/user/${localStorage.getItem('userId')}`, updateUser).then(Response => { setModelOpen(false); funcReload() }).catch(err => console.log(err))
+        const updateUserServer = () => {
+            axios.put(`${URL}/user/${localStorage.getItem('userId')}`, updateUser).then(Response => { setModelOpen(false); funcReload(); setLoading(false) }).catch(err => console.log(err))
+        }
+
+
+        if (!updateUser.coverpicture && !updateUser.profilepicture) {
+            updateUserServer()
+        }
+
     }
 
     const funcReload = () => {
@@ -90,7 +101,7 @@ const ProfileModel = ({ modelOpen, setModelOpen }) => {
                         <input type="text" placeholder='Last Name' name='lastname' className='InfoInput' value={updateUser.lastname} onChange={funcOnChange} autoComplete='off' />
                     </div>
                     <div className="InpName">
-                        <input type="text" placeholder='Liles In' name='liverin' className='InfoInput' value={updateUser.liverin} onChange={funcOnChange} autoComplete='off' />
+                        <input type="text" placeholder='Lives In' name='liverin' className='InfoInput' value={updateUser.liverin} onChange={funcOnChange} autoComplete='off' />
                         <input type="text" placeholder='Works At' name='worksat' className='InfoInput' value={updateUser.worksat} onChange={funcOnChange} autoComplete='off' />
                     </div>
 
@@ -99,12 +110,12 @@ const ProfileModel = ({ modelOpen, setModelOpen }) => {
 
                     <div className="PrfileImgUpdate">
                         <span>Profile Image</span>
-                        <input type="file" name='profileImg' onChange={funcProfileImg} />
+                        <input type="file" name='profileImg' onChange={funcProfileImg} accept="image/*" />
                         <span>Cover Image</span>
-                        <input type="file" name="coverImg" onChange={funcCoverImg} />
+                        <input type="file" name="coverImg" onChange={funcCoverImg} accept='image/*' />
                     </div>
                     <div className='bottomPartSignUp'>
-                        <button className="btn SignUpBtn" type='submit'>Update</button>
+                        <button className="btn SignUpBtn" type='submit' disabled={loading}>{loading ? "Uploading..." : "Update"}</button>
                     </div>
                 </form>
             </Modal>

@@ -49,14 +49,24 @@ const PostShare = () => {
                     "authToken": localStorage.getItem("authToken"),
                     "Content-Type": "multipart/form-data"
                 }
-            }).then((Response) => { setImage(null); setLoading(false) }).catch(err => { console.log(err); setLoading(false) })
-        }
+            }).then((Response) => { setImage(null); setLoading(false); sendPost() }).catch(err => { console.log(err); setLoading(false) })
 
-        axios.post(`${url}/post/`, newPost, {
-            headers: {
-                "authToken": localStorage.getItem("authToken")
+            const sendPost = () => {
+                axios.post(`${url}/post/`, newPost, {
+                    headers: {
+                        "authToken": localStorage.getItem("authToken")
+                    }
+                }).then((Response) => { desc.current.value = ""; setLoading(false); window.location.reload() }).catch(err => { console.log(err); setLoading(false) })
             }
-        }).then((Response) => { desc.current.value = ""; setLoading(false); window.location.reload() }).catch(err => { console.log(err); setLoading(false) })
+
+        }
+        if (!image) {
+            axios.post(`${url}/post/`, newPost, {
+                headers: {
+                    "authToken": localStorage.getItem("authToken")
+                }
+            }).then((Response) => { desc.current.value = ""; setLoading(false); window.location.reload() }).catch(err => { console.log(err); setLoading(false) })
+        }
     }
 
     return (
@@ -84,7 +94,7 @@ const PostShare = () => {
                     <button className='btn psBtn' onClick={funcUploadImage} disabled={loading}>{loading ? "Uploading..." : "Share"}</button>
                 </div>
                 <div style={{ display: "none" }}>
-                    <input type="file" name='Photo' ref={imageRef} onChange={onImageChange} />
+                    <input type="file" name='Photo' ref={imageRef} onChange={onImageChange} accept="image/*" />
                 </div>
                 {image && (
                     <div className='previewImage'>

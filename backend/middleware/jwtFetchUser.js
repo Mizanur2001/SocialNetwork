@@ -11,7 +11,6 @@ const jwtFetchUser = (req, res, next) => {
         next()
     } catch (error) {
         res.status(500).send("Internal Server Problem")
-        console.log(error)
     }
 
 }
