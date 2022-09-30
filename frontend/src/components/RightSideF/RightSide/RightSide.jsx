@@ -7,6 +7,7 @@ import { UilSetting } from '@iconscout/react-unicons'
 import './RightSide.css'
 import ShareModel from '../../Models/ShareModel/ShareModel'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const RightSide = () => {
@@ -16,18 +17,23 @@ const RightSide = () => {
     Navigate('/')
   }
 
+  const funcComingSoon = () => {
+    toast.info("Coming soon :)");
+  }
+
   return (
     <div className="RightSide">
       <div className="navIcons">
         <img src={HomeImg} alt="home" onClick={funcNavigate} />
-        <UilSetting />
-        <img src={MessageImg} alt="notification" />
-        <img src={NotiImg} alt="message" />
+        <UilSetting onClick={funcComingSoon}/>
+        <img src={MessageImg} alt="notification" onClick={funcComingSoon}/>
+        <img src={NotiImg} alt="message" onClick={funcComingSoon}/>
       </div>
 
       <TrendCard />
       <button className='btn rs-btn' onClick={() => setOpenModel(true)}>Share</button>
       <ShareModel openModel={openModel} setOpenModel={setOpenModel} />
+      <ToastContainer />
     </div >
   )
 }

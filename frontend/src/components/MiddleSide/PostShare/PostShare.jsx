@@ -3,6 +3,7 @@ import axios from 'axios'
 import profileImg from '../../../img/profilePic.jpg'
 import './PostShare.css'
 import { UilScenery, UilPlayCircle, UilLocationPoint, UilSchedule, UilTimes } from '@iconscout/react-unicons'
+import { ToastContainer, toast } from 'react-toastify';
 
 const PostShare = () => {
     const url = process.env.REACT_APP_BACKEND_URL
@@ -69,42 +70,51 @@ const PostShare = () => {
         }
     }
 
-    return (
-        <div className='PostShare'>
-            <img src={userInfo.profilepicture ? process.env.REACT_APP_PUBLIC_IMG_FOLDER + userInfo.profilepicture : profileImg} alt="ProfileImg" />
-            <div>
-                <input type="text" required={true} placeholder="what's Happening" ref={desc} />
-                <div className="PostOptions">
-                    <div className="option" onClick={() => imageRef.current.click()}>
-                        <UilScenery />
-                        Photo
-                    </div>
-                    <div className="option">
-                        <UilPlayCircle />
-                        Video
-                    </div>
-                    <div className="option">
-                        <UilLocationPoint />
-                        Location
-                    </div>
-                    <div className="option">
-                        <UilSchedule />
-                        Shedule
-                    </div>
-                    <button className='btn psBtn' onClick={funcUploadImage} disabled={loading}>{loading ? "Uploading..." : "Share"}</button>
-                </div>
-                <div style={{ display: "none" }}>
-                    <input type="file" name='Photo' ref={imageRef} onChange={onImageChange} accept="image/*" />
-                </div>
-                {image && (
-                    <div className='previewImage'>
-                        <UilTimes onClick={() => { setImage(null) }} />
-                        <img src={URL.createObjectURL(image)} alt="shareImage" />
-                    </div>
-                )}
-            </div>
+    const funcComingSoon = () => {
+        toast.info("Coming soon :)");
+    }
 
-        </div>
+    return (
+        <>
+            <div className='PostShare'>
+                <img src={userInfo.profilepicture ? process.env.REACT_APP_PUBLIC_IMG_FOLDER + userInfo.profilepicture : profileImg} alt="ProfileImg" />
+                <div>
+                    <input type="text" required={true} placeholder="what's Happening" ref={desc} />
+                    <div className="PostOptions">
+                        <div className="option" onClick={() => imageRef.current.click()}>
+                            <UilScenery />
+                            Photo
+                        </div>
+                        <div className="option" onClick={funcComingSoon}>
+                            <UilPlayCircle />
+                            Video
+                        </div>
+                        <div className="option" onClick={funcComingSoon}>
+                            <UilLocationPoint />
+                            Location
+                        </div>
+                        <div className="option" onClick={funcComingSoon}>
+                            <UilSchedule />
+                            Shedule
+                        </div>
+                        <button className='btn psBtn' onClick={funcUploadImage} disabled={loading}>{loading ? "Uploading..." : "Share"}</button>
+                    </div>
+                    <div style={{ display: "none" }}>
+                        <input type="file" name='Photo' ref={imageRef} onChange={onImageChange} accept="image/*" />
+                    </div>
+                    {image && (
+                        <div className='previewImage'>
+                            <UilTimes onClick={() => { setImage(null) }} />
+                            <img src={URL.createObjectURL(image)} alt="shareImage" />
+                        </div>
+                    )}
+                </div>
+
+            </div>
+            <div>
+                <ToastContainer />
+            </div>
+        </>
     )
 }
 

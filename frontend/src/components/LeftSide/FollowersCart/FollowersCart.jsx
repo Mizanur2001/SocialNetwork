@@ -35,8 +35,8 @@ const FollowersCart = () => {
                 headers: {
                     'authToken': localStorage.getItem('authToken')
                 }
-            }).then(Responce => console.log(Responce.data)).catch(err => console.log(err))
-            window.location.reload()
+            }).then(Responce => { window.location.reload() }).catch(err => console.log(err))
+
         }
         if (following.includes(id)) {
             axios.put(`${URL}/user/${id}/unfollow`, {
@@ -45,8 +45,8 @@ const FollowersCart = () => {
                 headers: {
                     'authToken': localStorage.getItem('authToken')
                 }
-            }).then(Responce => console.log(Responce.data)).catch(err => console.log(err))
-            window.location.reload()
+            }).then(Responce => { window.location.reload() }).catch(err => console.log(err))
+
         }
     }
 

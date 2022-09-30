@@ -1,6 +1,6 @@
 {
   "name": "socialnetwork",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "private": true,
   "dependencies": {
     "@iconscout/react-unicons": "^1.1.6",
