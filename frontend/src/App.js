@@ -20,6 +20,7 @@ function App() {
         <Routes>
           <Route path='/' element={localStorage.getItem('authToken') ? <Home /> : <Navigate to='/Auth' />} />
           <Route path='/users' element={localStorage.getItem('authToken') ? <Users /> : <Navigate to='/Auth' />} />
+          <Route path='/profile/:id' element={localStorage.getItem('authToken') ? <Profile /> : <Navigate to='/Auth' />} />
           <Route path='/profile' element={localStorage.getItem('authToken') ? <Profile /> : <Navigate to='/Auth' />} />
           <Route path='/Auth' element={localStorage.getItem('authToken') ? <Navigate to='/' /> : <Auth />} />
           <Route path='/Auth/verify' element={localStorage.getItem('authToken') ? <Navigate to='/' /> : <Verify />} />

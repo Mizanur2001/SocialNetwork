@@ -92,3 +92,20 @@
     margin-bottom: 1rem;
     cursor: pointer;
 }
+
+.userAddiInfo{
+    display: flex;
+    flex-direction: column;
+    margin-left: 7%;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+}
+
+.iconAndInfo{
+    display: flex;
+    align-items: center;
+}
+
+.iconAndInfo span{
+    margin-right: 7px;
+}

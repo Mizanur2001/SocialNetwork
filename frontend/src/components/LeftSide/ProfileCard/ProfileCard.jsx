@@ -5,17 +5,20 @@ import profile from '../../../img/profilePic.jpg'
 import './ProfileCard.css'
 import axios from 'axios'
 
-const ProfileCard = () => {
+const ProfileCard = (userId) => {
     const URL = process.env.REACT_APP_BACKEND_URL
     const [url, setUrl] = useState(window.location.href)
     const [userInfo, setUserInfo] = useState("")
     const [noOfPosts, setNoOfPosts] = useState([])
+    const [addiInfo, setAddiInfo] = useState(false)
     const Navigate = useNavigate()
     let ProfilePage = false
+
+
     useEffect(() => {
         setUrl(window.location.href)
         const API = axios.create({ baseURL: `${URL}` })
-        API.get(`/user/${localStorage.getItem('userId')}`, {
+        API.get(`/user/${userId.id ? userId.id : localStorage.getItem('userId')}`, {
             headers: {
                 "authToken": localStorage.getItem("authToken")
             }
@@ -27,14 +30,12 @@ const ProfileCard = () => {
             }
         }).then(Response => setNoOfPosts(Response.data)).catch(err => console.log(err))
 
-        const API1 = axios.create({ baseURL: `${URL}` })
-        API1.get(`/user/${localStorage.getItem('userId')}`, {
-            headers: {
-                "authToken": localStorage.getItem("authToken")
-            }
-        }).then(Response => setUserInfo(Response.data)).catch(err => console.log(err))
-        // eslint-disable-next-line
-    }, [])
+        if (userId.id !== undefined) {
+            setAddiInfo(true)
+        }
+        
+    }, [userId.id, URL])
+
 
     if (url.includes('/profile')) {
         ProfilePage = true
@@ -85,6 +86,28 @@ const ProfileCard = () => {
                 <span className='ViewMyProfile' onClick={() => Navigate("/profile")}>
                     My Profile
                 </span>
+            }
+            {addiInfo &&
+                <div className='userAddiInfo'>
+                    <div className='iconAndInfo'>
+                        <span className="material-symbols-outlined">
+                            work
+                        </span>
+                        <p><b>Works At</b> : {userInfo.worksat}</p>
+                    </div>
+                    <div className='iconAndInfo'>
+                        <span className="material-symbols-outlined">
+                            diversity_4
+                        </span>
+                        <p> <b>Relationship</b> : {userInfo.relationship}</p>
+                    </div>
+                    <div className='iconAndInfo'>
+                        <span className="material-symbols-outlined">
+                            location_city
+                        </span>
+                        <p><b>Lives At</b> : {userInfo.liverin}</p>
+                    </div>
+                </div>
             }
         </div>
     )

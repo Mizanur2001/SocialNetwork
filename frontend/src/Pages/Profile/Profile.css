@@ -15,6 +15,10 @@
     display: none;
 }
 
+.ProfileCenter h4{
+    text-align: center;
+} 
+
 @media(max-width:1171px){
     .Profile{
         grid-template-columns: 18rem auto 15rem;

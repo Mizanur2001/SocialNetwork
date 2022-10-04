@@ -4,8 +4,10 @@ import defaulfImg from '../../../img/profilePic.jpg'
 import Seach from '../LogoSearch/LogoSearch'
 import { Loader } from '@mantine/core';
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const FollowersCart = () => {
+    const navigate = useNavigate()
     const URL = process.env.REACT_APP_BACKEND_URL
     const [allUser, setAllUsers] = useState([]);
     const [following, setfollowing] = useState([]);
@@ -50,6 +52,10 @@ const FollowersCart = () => {
         }
     }
 
+    const funcFollowerInfo = (follower) => {
+        navigate(`/profile/${follower._id}`)
+    }
+
     return (
         <div className='FollowersCarts'>
             <div className="seach">
@@ -62,7 +68,7 @@ const FollowersCart = () => {
             {allUser.map((follower, id) => {
                 return (
                     <div className="follower" key={id}>
-                        <div>
+                        <div className='followerInfo' onClick={() => funcFollowerInfo(follower)}>
                             <img src={follower.profilepicture ? process.env.REACT_APP_PUBLIC_IMG_FOLDER + follower.profilepicture : defaulfImg} alt="followerImg" className='followerImg' />
                             <div className="name">
                                 <span>{follower.firstname} {follower.lastname}</span>
