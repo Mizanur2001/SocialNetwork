@@ -81,7 +81,7 @@ const Auth = () => {
                     <input type="password" name='cpassword' placeholder='Confirm Password' className='InfoInput' onChange={onChange} value={credentials.cpassword} autoComplete="off" />
                 </div>
                 <div className='bottomPartSignUp'>
-                    <span className='gradientText c-pointer' onClick={() => setIsLogin(false)}>Have an Accunt ? SingIn</span>
+                    <span className='gradientText c-pointer' onClick={() => setIsLogin(false)}>Have an Account ? SingIn</span>
                     <button className="btn SignUpBtn" type='submit' disabled={loading}>{loading ? "Loading..." : "SignUp"}</button>
                 </div>
             </form>}
@@ -99,7 +99,7 @@ const Auth = () => {
                 </div>
 
                 <div className='bottomPartSignIn'>
-                    <span className='gradientText c-pointer' onClick={() => setIsLogin(true)}>Dont Have an Accunt ? SingUp </span>
+                    <span className='gradientText c-pointer' onClick={() => setIsLogin(true)}>Dont Have an Account ? SingUp </span>
                     <button className="btn SignUpBtn" type='submit' disabled={loading}>{loading ? "Loading..." : "Singn In"}</button>
                 </div>
             </form>}
