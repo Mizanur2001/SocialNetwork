@@ -41,7 +41,9 @@ const authController = () => {
         })
         const otp = new otpModel({
             email: email,
-            otp: OTP
+            otp: OTP,
+            type: "New Account creation",
+            activation: false
         })
         const otpData = await otpModel.findOne({ email: email })
         if (otpData == null) {
@@ -117,8 +119,8 @@ const authController = () => {
                 }
                 const jwt_Token = jwt.sign(data, process.env.SECTRE_KEY)
                 const userInfo = {
-                    token : jwt_Token,
-                    userId : user.id,
+                    token: jwt_Token,
+                    userId: user.id,
                     userName: user.username
                 }
                 res.status(200).json(userInfo)

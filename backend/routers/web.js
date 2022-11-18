@@ -4,6 +4,7 @@ import postController from '../controllers/postController.js'
 import jwtVerifyUser from '../middleware/jwtFetchUser.js'
 import uploadController from '../controllers/uploadController.js'
 import multerUpload from '../files/multer.js'
+import forgotpass from '../controllers/forgotpass.js'
 
 const web = (app) => {
     app.post('/register', authController().register)
@@ -25,6 +26,9 @@ const web = (app) => {
     app.put('/post/:id/comment', jwtVerifyUser, postController().comments)
     app.post('/upload/img', jwtVerifyUser, multerUpload.single('Photo'), uploadController().uploadimg)
     app.post("/resendotp", authController().resendOtp)
+    app.post("/forgotpass", forgotpass().findEmail);
+    app.post("/forgotpass/verifyotp",forgotpass().verifyOTP)
+    app.post("/forgotpass/changepass",forgotpass().changepass)
 }
 
 export default web

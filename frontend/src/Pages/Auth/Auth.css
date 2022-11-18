@@ -91,6 +91,7 @@
     color: red;
     font-weight: bold;
     font-size: 15px;
+    margin-left: 20px;
 }
 
 .InfoInput {
@@ -178,4 +179,11 @@
     .InfoInput{
         padding: 14px
     }
+}
+
+.forgetPass{
+    align-self: baseline;
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
 }

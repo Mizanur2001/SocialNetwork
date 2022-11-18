@@ -13,6 +13,11 @@ const Auth = () => {
     const [loginCredential, setLoginCredential] = useState({ lusername: "", lpassword: "" })
     const [islogin, setIsLogin] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [isForgetPass, setisForgetPass] = useState(false);
+    const [isForgetPassCode, setisForgetPassCode] = useState(false);
+    const [isForgetPassConf, setisForgetPassConf] = useState(false);
+    const [forgetPass, setForgetpass] = useState({ fEmail: '', fOtp: '', fpassword: "", fcnfpassword: "" })
+    const [forgetpassError, setForgetpassError] = useState({ status: false, message: "" })
 
     const funcOnSubmitSigninData = async (e) => {
         setLoading(true)
@@ -29,6 +34,8 @@ const Auth = () => {
         setSignUpError({ status: false, message: "" })
         setLoginCredential({ ...loginCredential, [e.target.name]: e.target.value })
         setSignInError({ message: "", status: false })
+        setForgetpass({ ...forgetPass, [e.target.name]: e.target.value })
+        setForgetpassError({ status: false, message: false })
     }
 
     const funcSubmitLoginData = async (e) => {
@@ -45,6 +52,53 @@ const Auth = () => {
         }).catch((error) => {
             setSignInError({ message: error.response.data, status: true })
             setLoading(false)
+        })
+    }
+
+    //email send to server for check (forget Password)
+    const funcForgetPassSendMail = async (e) => {
+        e.preventDefault();
+        setSignUpError({ status: false, message: "" })
+        setSignInError({ message: "", status: false })
+        setLoading(true)
+
+        await axios.post(`${URL}/forgotpass`, { email: forgetPass.fEmail }).then((response) => {
+            setisForgetPassCode(true);
+            setisForgetPass(false)
+            setLoading(false)
+        }).catch(err => { setForgetpassError({ status: true, message: err.response.data }, setLoading(false)) })
+    }
+
+    //check OTP (forget Password)
+    const funcForgetPassOtpVerify = async (e) => {
+        e.preventDefault();
+        e.preventDefault();
+        setSignUpError({ status: false, message: "" })
+        setSignInError({ message: "", status: false })
+        setLoading(true)
+
+        await axios.post(`${URL}/forgotpass/verifyotp`, { email: forgetPass.fEmail, otp: forgetPass.fOtp }).then((response) => {
+            setisForgetPassCode(false);
+            setisForgetPassConf(true)
+            setLoading(false)
+        }).catch(err => { setForgetpassError({ status: true, message: err.response.data }, setLoading(false)) })
+    }
+
+    //Change password (forget Password)
+    const funcForgetPassChangePass = async (e) => {
+        e.preventDefault();
+        e.preventDefault();
+        setSignUpError({ status: false, message: "" })
+        setSignInError({ message: "", status: false })
+        setLoading(true)
+
+        await axios.post(`${URL}/forgotpass/changepass`, { email: forgetPass.fEmail, password: forgetPass.fpassword, cnfpassword: forgetPass.fcnfpassword }).then((response) => {
+            setLoading(false)
+            forgetPass.fcnfpassword = ""
+            forgetPass.fpassword = ""
+            nevigate('/')
+        }).catch(err => {
+            setForgetpassError({ status: true, message: err.response.data }, setLoading(false))
         })
     }
 
@@ -88,7 +142,7 @@ const Auth = () => {
 
             {/* SignIn  */}
 
-            {!islogin && <form onSubmit={funcSubmitLoginData} className="SignUp">
+            {!islogin && !isForgetPass && !isForgetPassCode && !isForgetPassConf && <form onSubmit={funcSubmitLoginData} className="SignUp">
                 <div className="startingDivSignUpForm">
                     <h3 className='gradientText'>Sign In</h3>
                     {signInError.status && <span>*{signInError.message}</span>}
@@ -102,7 +156,61 @@ const Auth = () => {
                     <span className='gradientText c-pointer' onClick={() => setIsLogin(true)}>Dont Have an Account ? SingUp </span>
                     <button className="btn SignUpBtn" type='submit' disabled={loading}>{loading ? "Loading..." : "Singn In"}</button>
                 </div>
+                <span className='c-pointer forgetPass' onClick={() => { setisForgetPass(true) }}>Forget Password ? </span>
             </form>}
+
+            {/*Forget password */}
+
+            {isForgetPass && <form className="SignUp" onSubmit={funcForgetPassSendMail}>
+                <div className="startingDivSignUpForm">
+                    <h3 className='gradientText'>Forget password</h3>
+                    {forgetpassError.status && <span>*{forgetpassError.message}{signInError.message}</span>}
+                </div>
+                <div className="InpUname">
+                    <input type="email" placeholder='Enter your Mail Id' name='fEmail' className='InfoInput' autoComplete="off" onChange={onChange} value={forgetPass.fEmail} />
+                </div>
+
+                <div className='bottomPartSignIn'>
+                    <span className='gradientText c-pointer' onClick={() => setisForgetPass(false)}> Go back to sign In Page </span>
+                    <button className="btn SignUpBtn" type='submit' disabled={loading} >{loading ? "Loading..." : "Next"}</button>
+                </div>
+            </form>}
+
+            {/* forget Password OTP chacker*/}
+
+            {isForgetPassCode && <form onSubmit={funcForgetPassOtpVerify} className="SignUp">
+                <div className="startingDivSignUpForm">
+                    <h3 className='gradientText'>Verify Yourself</h3>
+                    {forgetpassError.status && <span>*{forgetpassError.message}{signInError.message}</span>}
+                </div>
+                <div className="InpUname">
+                    <input type="number" placeholder='Enter OTP' name='fOtp' className='InfoInput' autoComplete="off" onChange={onChange} value={forgetPass.fOtp} />
+                </div>
+
+                <div className='bottomPartSignIn'>
+                    <span className='gradientText'> Don't Send it with Anyone Else  </span>
+                    <button className="btn SignUpBtn" type='submit' disabled={loading}>{loading ? "Loading..." : "Next"}</button>
+                </div>
+            </form>}
+
+            {/* Change Password(forget password)*/}
+
+            {isForgetPassConf && <form onSubmit={funcForgetPassChangePass} className="SignUp">
+                <div className="startingDivSignUpForm">
+                    <h3 className='gradientText'>Change Your Password</h3>
+                    {forgetpassError.status && <span>*{forgetpassError.message}{signInError.message}</span>}
+                </div>
+                <div className="InpUname">
+                    <input type="password" name='fpassword' placeholder='Password' className='InfoInput' onChange={onChange} value={forgetPass.fpassword} autoComplete="off" />
+                    <input type="password" name='fcnfpassword' placeholder='Confirm Password' className='InfoInput' onChange={onChange} value={forgetPass.fcnfpassword} autoComplete="off" />
+                </div>
+
+                <div className='bottomPartSignIn'>
+                    <span className='gradientText'> It's Not cool You forget your Password :(  </span>
+                    <button className="btn SignUpBtn" type='submit' disabled={loading}>{loading ? "Loading..." : "Cofirm"}</button>
+                </div>
+            </form>}
+
         </div>
     )
 }
