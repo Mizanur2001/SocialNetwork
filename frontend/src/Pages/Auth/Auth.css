@@ -76,6 +76,10 @@
     border-radius: 1rem;
 }
 
+.relative {
+    position: relative;
+}
+
 .startingDivSignUpForm {
     display: flex;
     width: 100%;
@@ -141,6 +145,47 @@
     cursor: pointer;
 }
 
+
+.material-symbols-outlined {
+    position: absolute;
+    right: 235px;
+    top: 19px;
+    color: #848484;
+}
+
+.material-symbols-outlined:hover+.PasswordInfoBox {
+    display: block;
+}
+
+.PasswordInfoBox {
+    position: absolute;
+    height: 118px;
+    width: 199px;
+    border: 2px solid #cbcac9;
+    border-radius: 13px;
+    font-size: 14px;
+    color: black;
+    background: #cbcac9;
+    padding: 0 5px;
+    right: 0px;
+    top: -31px;
+    z-index: 10;
+    display: none;
+    padding: 10px;
+}
+
+.PasswordInfoBox::after {
+    content: "";
+    height: 18px;
+    width: 19px;
+    background: #cbcac9;
+    position: absolute;
+    top: 50px;
+    right: 210px;
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
 @media(max-width:1000px) {
     .Auth {
         flex-direction: column;
@@ -149,10 +194,10 @@
         background-image: url('../../img/login.png');
         background-repeat: no-repeat;
         object-fit: cover;
-        background-position:top center;
+        background-position: top center;
     }
 
-    .SignUp{
+    .SignUp {
         background: rgba(255, 255, 255, 0.85);
     }
 
@@ -176,14 +221,33 @@
         width: 100%;
     }
 
-    .InfoInput{
+    .InfoInput {
         padding: 14px
+    }
+
+    .material-symbols-outlined {
+        position: absolute;
+        right: 8px;
+        top: 12px;
+    }
+
+    .PasswordInfoBox {
+        top: -143px;
+    }
+
+    .PasswordInfoBox::after {
+        top: 127px;
+        right: 10px;
     }
 }
 
-.forgetPass{
+.forgetPass {
     align-self: baseline;
     color: red;
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+.bold{
+    font-weight: bold;
 }

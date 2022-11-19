@@ -117,7 +117,7 @@ const Auth = () => {
 
             {/* SignUP  */}
 
-            {islogin && <form className="SignUp signUpMob" onSubmit={funcOnSubmitSigninData}>
+            {islogin && <form className="SignUp signUpMob relative" onSubmit={funcOnSubmitSigninData}>
                 <div className='startingDivSignUpForm'>
                     <h3 className='gradientText'>SignUp</h3>
                     {signUpError.status && <span>*{signUpError.message}</span>}
@@ -130,8 +130,16 @@ const Auth = () => {
                     <input type="text" placeholder='User Name' name='username' className='InfoInput' onChange={onChange} value={credentials.username} autoComplete="off" />
                     <input type="email" placeholder='Email Id' name='email' className='InfoInput' onChange={onChange} value={credentials.email} autoComplete="off" />
                 </div>
-                <div className="Password">
+                <div className="Password relative">
                     <input type="password" name='password' placeholder='Password' className='InfoInput' onChange={onChange} value={credentials.password} autoComplete="off" />
+                    <span className="material-symbols-outlined">
+                        info
+                    </span>
+                    <span className='PasswordInfoBox'>
+                        Make sure it's at least 8 characters and including a number and a lowercase letter and aslo a uppercase letter
+                        <br />
+                        <span className='bold'>e.g :- Abcd123$</span>
+                    </span>
                     <input type="password" name='cpassword' placeholder='Confirm Password' className='InfoInput' onChange={onChange} value={credentials.cpassword} autoComplete="off" />
                 </div>
                 <div className='bottomPartSignUp'>
