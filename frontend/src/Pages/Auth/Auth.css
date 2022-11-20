@@ -146,14 +146,14 @@
 }
 
 
-.material-symbols-outlined {
+.infoBtn {
     position: absolute;
     right: 235px;
     top: 19px;
     color: #848484;
 }
 
-.material-symbols-outlined:hover+.PasswordInfoBox {
+.infoBtn:hover+.PasswordInfoBox {
     display: block;
 }
 
@@ -225,7 +225,7 @@
         padding: 14px
     }
 
-    .material-symbols-outlined {
+    .infoBtn {
         position: absolute;
         right: 8px;
         top: 12px;

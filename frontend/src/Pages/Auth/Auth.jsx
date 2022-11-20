@@ -132,7 +132,7 @@ const Auth = () => {
                 </div>
                 <div className="Password relative">
                     <input type="password" name='password' placeholder='Password' className='InfoInput' onChange={onChange} value={credentials.password} autoComplete="off" />
-                    <span className="material-symbols-outlined">
+                    <span className="material-symbols-outlined infoBtn">
                         info
                     </span>
                     <span className='PasswordInfoBox'>
