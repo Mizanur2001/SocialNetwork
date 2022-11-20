@@ -208,8 +208,16 @@ const Auth = () => {
                     <h3 className='gradientText'>Change Your Password</h3>
                     {forgetpassError.status && <span>*{forgetpassError.message}{signInError.message}</span>}
                 </div>
-                <div className="InpUname">
+                <div className="InpUname relative">
                     <input type="password" name='fpassword' placeholder='Password' className='InfoInput' onChange={onChange} value={forgetPass.fpassword} autoComplete="off" />
+                    <span className="material-symbols-outlined forgetPassInfoBtn">
+                        info
+                    </span>
+                    <span className='ForgetPasswordInfoBox'>
+                        Make sure it's at least 8 characters and including a number and a lowercase letter and aslo a uppercase letter
+                        <br />
+                        <span className='bold'>e.g :- Abcd123$</span>
+                    </span>
                     <input type="password" name='fcnfpassword' placeholder='Confirm Password' className='InfoInput' onChange={onChange} value={forgetPass.fcnfpassword} autoComplete="off" />
                 </div>
 

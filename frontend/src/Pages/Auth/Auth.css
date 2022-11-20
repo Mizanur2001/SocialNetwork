@@ -186,6 +186,45 @@
     z-index: -1;
 }
 
+.forgetPassInfoBtn {
+    position: absolute;
+    top: 18px;
+    right: 11px;
+    color: #848484;
+}
+
+.forgetPassInfoBtn:hover+.ForgetPasswordInfoBox{
+    display: block;
+}
+
+.ForgetPasswordInfoBox {
+    position: absolute;
+    height: 106px;
+    width: 156px;
+    border: 2px solid #cbcac9;
+    border-radius: 13px;
+    font-size: 14px;
+    color: black;
+    background: #cbcac9;
+    right: 48px;
+    top: -38px;
+    z-index: 10;
+    padding: 10px;
+    display: none;
+}
+
+.ForgetPasswordInfoBox::after {
+    content: "";
+    height: 18px;
+    width: 19px;
+    background: #cbcac9;
+    position: absolute;
+    top: 56px;
+    right: -11px;
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
 @media(max-width:1000px) {
     .Auth {
         flex-direction: column;
@@ -239,6 +278,15 @@
         top: 127px;
         right: 10px;
     }
+
+    .forgetPassInfoBtn {
+        top: 11px;
+    }
+
+    .ForgetPasswordInfoBox::after {
+        top: 49px;
+        right: -11px;
+    }
 }
 
 .forgetPass {
@@ -248,6 +296,6 @@
     margin-bottom: 10px;
 }
 
-.bold{
+.bold {
     font-weight: bold;
 }
