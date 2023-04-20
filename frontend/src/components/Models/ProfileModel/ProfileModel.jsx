@@ -3,6 +3,7 @@ import './ProfileModel.css'
 import { useState } from 'react'
 import axios from 'axios'
 import React from 'react'
+import Compressor from 'compressorjs';
 
 const ProfileModel = ({ modelOpen, setModelOpen }) => {
     const URL = process.env.REACT_APP_BACKEND_URL
@@ -64,22 +65,62 @@ const ProfileModel = ({ modelOpen, setModelOpen }) => {
     }
 
     const funcProfileImg = (e) => {
-        const formData = new FormData()
-        const fileName = Date.now() + "--ProfileImg--" + e.target.files[0].name
-        formData.append('name', fileName)
-        formData.append('Photo', e.target.files[0])
-        setProfileImage(formData)
-        setUpdateUser({ ...updateUser, profilepicture: fileName })
+
+        //compressing the image 
+        if (e.target.files[0].size / (1024 * 1024) < 6) {
+            new Compressor(e.target.files[0], {
+                quality: 0.6, success(result) {
+                    const formData = new FormData()
+                    const fileName = Date.now() + "--ProfileImg--" + e.target.files[0].name
+                    formData.append('name', fileName)
+                    formData.append('Photo', result)
+                    setProfileImage(formData)
+                    setUpdateUser({ ...updateUser, profilepicture: fileName })
+                }, error(err) { console.log(err) }
+            })
+        }
+        else {
+            new Compressor(e.target.files[0], {
+                quality: 0.09, success(result) {
+                    const formData = new FormData()
+                    const fileName = Date.now() + "--ProfileImg--" + e.target.files[0].name
+                    formData.append('name', fileName)
+                    formData.append('Photo', result)
+                    setProfileImage(formData)
+                    setUpdateUser({ ...updateUser, profilepicture: fileName })
+                }, error(err) { console.log(err) }
+            })
+        }
     }
 
     const funcCoverImg = (e) => {
-        const formData = new FormData()
-        const fileName = Date.now() + "--CoverImg--" + e.target.files[0].name
-        formData.append('name', fileName)
-        formData.append('Photo', e.target.files[0])
-        setCoverImage(formData)
-        setUpdateUser({ ...updateUser, coverpicture: fileName })
+        if (e.target.files[0].size / (1024 * 1024) < 6) {
+            new Compressor(e.target.files[0], {
+                quality: 0.6, success(result) {
+                    const formData = new FormData()
+                    const fileName = Date.now() + "--CoverImg--" + e.target.files[0].name
+                    formData.append('name', fileName)
+                    formData.append('Photo', result)
+                    setCoverImage(formData)
+                    setUpdateUser({ ...updateUser, coverpicture: fileName })
+                }, error(err) { console.log(err) }
+            })
+        }
+        else {
+            new Compressor(e.target.files[0], {
+                quality: 0.09, success(result) {
+                    const formData = new FormData()
+                    const fileName = Date.now() + "--CoverImg--" + e.target.files[0].name
+                    formData.append('name', fileName)
+                    formData.append('Photo', result)
+                    setCoverImage(formData)
+                    setUpdateUser({ ...updateUser, coverpicture: fileName })
+                }, error(err) { console.log(err) }
+            })
+        }
     }
+
+
     return (
         <div>
             <Modal
