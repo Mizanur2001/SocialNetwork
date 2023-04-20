@@ -4,6 +4,7 @@ import profileImg from '../../../img/profilePic.jpg'
 import './PostShare.css'
 import { UilScenery, UilPlayCircle, UilLocationPoint, UilSchedule, UilTimes } from '@iconscout/react-unicons'
 import { ToastContainer, toast } from 'react-toastify';
+import Compressor from 'compressorjs';
 
 const PostShare = () => {
     const url = process.env.REACT_APP_BACKEND_URL
@@ -25,7 +26,14 @@ const PostShare = () => {
     const onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
-            setImage(img)
+
+            //compressing the image 
+            if (event.target.files[0].size / (1024 * 1024) < 6) {
+                new Compressor(img, { quality: 0.6, success(result) { setImage(result) }, error(err) { console.log(err) } })
+            }
+            else {
+                new Compressor(img, { quality: 0.09, success(result) { setImage(result) }, error(err) { console.log(err) } })
+            }
         }
     }
 
