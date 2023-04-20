@@ -31,9 +31,12 @@
     gap: 2rem;
 }
 
-.LeftSide>img {
-    height: 4.3rem;
-    width: 5rem;
+.LeftSide img {
+    position: relative;
+    top: -18px;
+    right: -45px;
+    height: 6rem;
+    width: 6rem;
 }
 
 .webName>h1 {
@@ -193,7 +196,7 @@
     color: #848484;
 }
 
-.forgetPassInfoBtn:hover+.ForgetPasswordInfoBox{
+.forgetPassInfoBtn:hover+.ForgetPasswordInfoBox {
     display: block;
 }
 

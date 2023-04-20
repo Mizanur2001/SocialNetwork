@@ -6,7 +6,7 @@ import {UilSearch} from '@iconscout/react-unicons'
 const LogoSearch = ()=>{
     return(
         <div className="LogoSearch">
-            <img src={Logo} alt="logo" />
+            <img src={Logo} alt="logo" className="logo"/>
             <div className="Search">
                 <input type="text" placeholder="#Explore" />
                 <div className="s-icon">
