@@ -19,7 +19,103 @@ const forgotpass = () => {
             from: process.env.USER,
             to: email,
             subject: "Your OTP From SocialNetwork",
-            text: `holla!! , you otp is < ${otp} > don't share it with anyone else . don't forgot it again .  Have a good day`
+            html: `
+            <!DOCTYPE html>
+            <html>
+            
+            <head>
+                <title>Social Network - OTP Verification</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        background-color: #f4f4f4;
+                    }
+            
+                    .container {
+                        max-width: 600px;
+                        margin: 0 auto;
+                        padding: 20px;
+                        border-radius: 5px;
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                    }
+            
+                    .container::before {
+                        content: "";
+                        background: url("backgroung_img.jpg") no-repeat center center/cover;
+                        position: absolute;
+                        top: 25px;
+                        right: 480px;
+                        width: 33%;
+                        height: 434px;
+                        z-index: -1;
+                        opacity: 0.2;
+                    }
+            
+                    h1 {
+                        text-align: center;
+                    }
+            
+                    p {
+                        margin-bottom: 20px;
+                    }
+            
+                    .otp {
+                        text-align: center;
+                        font-size: 24px;
+                        font-weight: bold;
+                        padding: 10px;
+                        background-color: #eee;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        margin-bottom: 20px;
+                    }
+            
+                    .cta-button {
+                        display: block;
+                        width: 200px;
+                        margin: 0 auto;
+                        padding: 10px;
+                        text-align: center;
+                        background-color: #4CAF50;
+                        color: #fff;
+                        text-decoration: none;
+                        border-radius: 5px;
+                    }
+            
+                    .cta-button:hover {
+                        background-color: #45a049;
+                    }
+            
+                    .logo {
+                        display: block;
+                        margin: 0 auto;
+                        width: 150px;
+                        text-align: center;
+                    }
+            
+                    .image {
+                        display: block;
+                        margin: 20px auto;
+                        max-width: 100%;
+                        height: auto;
+                        border-radius: 5px;
+                    }
+                </style>
+            </head>
+            
+            <body>
+                <div class="container">
+                    <img class="logo" src="https://sn.mizanur.in/static/media/logo.89e5084e2e60a6f30c7c.png"
+                        alt="Social Network Logo">
+                    <h1>Forgot Password</h1>
+                    <p>Holla,</p>
+                    <p>You have requested to reset your password for your social network account. To proceed, please use the following One-Time Password (OTP) code:</p>
+                    <div class="otp">${otp}</div>
+                    <p>Enter this OTP code on the website to reset your password. It's not cool that you forgot your password.</p>
+                </div>
+            </body>
+            
+            </html>`
         })
 
         transpoter.sendMail(mailOption, (err, info) => {
@@ -96,7 +192,7 @@ const forgotpass = () => {
             const { password, cnfpassword, email } = req.body
             try {
                 const otpVari = await otpModel.findOne({ email: email })
-                if(otpVari==null){
+                if (otpVari == null) {
                     return res.status(400).send("Bad request")
                 }
                 if (otpVari.activation) {
@@ -110,11 +206,11 @@ const forgotpass = () => {
                     if (password != cnfpassword) {
                         return res.status(400).send("Password Not Matched")
                     }
-                    
+
                     //password hassing
                     const salt = await bcrypt.genSalt(10)
                     const hassedPassword = await bcrypt.hash(password, salt)
-                    
+
                     //changing password
                     await userModel.updateOne({ email: email }, { $set: { password: hassedPassword } })
                     await otpModel.deleteOne({ email: email })
