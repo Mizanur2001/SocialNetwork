@@ -156,7 +156,7 @@ const Auth = () => {
                     {signInError.status && <span>*{signInError.message}</span>}
                 </div>
                 <div className="InpUname">
-                    <input type="text" placeholder='User Name' name='lusername' className='InfoInput' autoComplete="off" onChange={onChange} value={loginCredential.lusername} />
+                    <input type="text" placeholder='Email id' name='lusername' className='InfoInput' autoComplete="off" onChange={onChange} value={loginCredential.lusername} />
                     <input type="password" placeholder='Password' name='lpassword' className='InfoInput' autoComplete="off" onChange={onChange} value={loginCredential.lpassword} />
                 </div>
 
