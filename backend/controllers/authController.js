@@ -198,15 +198,15 @@ const authController = () => {
                 if (!lusername || !lpassword) {
                     return res.status(400).send("All field Required")
                 }
-                const user = await userModel.findOne({ username: lusername })
+                const user = await userModel.findOne({ email: lusername })
                 if (user == null) {
-                    return res.status(400).send("Invalid UserName or Password")
+                    return res.status(400).send("Invalid Email or Password")
                 }
 
                 const compPass = await bcrypt.compare(lpassword, user.password)
 
                 if (!compPass) {
-                    return res.status(400).send("Invalid UserName or Password")
+                    return res.status(400).send("Invalid Email or Password")
                 }
 
                 const data = {
