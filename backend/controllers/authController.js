@@ -13,13 +13,13 @@ const authController = () => {
         const transpoter = nodeMailer.createTransport({
             service: "gmail",
             auth: {
-                user: process.env.USER,
-                pass: process.env.PASSWORD
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASSWORD
             }
         })
 
         const mailOption = ({
-            from: process.env.USER,
+            from: process.env.EMAIL_USER,
             to: email,
             subject: "Your OTP From SocialNetwork",
             html: `

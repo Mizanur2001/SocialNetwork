@@ -21,9 +21,6 @@ const forgotpass = () => {
                 }
             })
 
-            console.log(process.env.EMAIL_USER, process.env.EMAIL_PASSWORD);
-
-
             const mailOption = {
                 from: process.env.EMAIL_USER,
                 to: email,
