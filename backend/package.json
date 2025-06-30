@@ -1,6 +1,6 @@
 {
   "name": "socialnetwork",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "social media application",
   "main": "index.js",
   "type": "module",

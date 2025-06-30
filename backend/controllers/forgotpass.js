@@ -6,20 +6,29 @@ import bcrypt from 'bcrypt'
 
 const forgotpass = () => {
     const sendMail = async (email) => {
-        const otp = await genOTP(email)
-        const transpoter = nodeMailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.USER,
-                pass: process.env.PASSWORD
-            }
-        })
+        try {
+            const otp = await genOTP(email)
+            const transporter = nodeMailer.createTransport({
+                service: "gmail",
+                port: 587,
+                secure: false,
+                auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASSWORD
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            })
 
-        const mailOption = ({
-            from: process.env.USER,
-            to: email,
-            subject: "Your OTP From SocialNetwork",
-            html: `
+            console.log(process.env.EMAIL_USER, process.env.EMAIL_PASSWORD);
+
+
+            const mailOption = {
+                from: process.env.EMAIL_USER,
+                to: email,
+                subject: "Your OTP From SocialNetwork",
+                html: `
             <!DOCTYPE html>
             <html>
             
@@ -116,16 +125,24 @@ const forgotpass = () => {
             </body>
             
             </html>`
-        })
-
-        transpoter.sendMail(mailOption, (err, info) => {
-            if (err) {
-                return err
             }
 
-            return "Mail send Successfully"
-        })
+            return new Promise((resolve, reject) => {
+                transporter.sendMail(mailOption, (err, info) => {
+                    if (err) {
+                        console.error('Email sending error:', err);
+                        reject(err);
+                    } else {
+                        console.log('Email sent successfully:', info.response);
+                        resolve("Mail sent successfully");
+                    }
+                });
+            });
 
+        } catch (error) {
+            console.error('Error in sendMail function:', error);
+            throw error;
+        }
     }
 
     const genOTP = async (email) => {
@@ -155,14 +172,19 @@ const forgotpass = () => {
 
         //Sending OTP to valid mail
         async findEmail(req, res) {
-            const { email } = req.body;
-            const isUser = await userModel.findOne({ email: email })
-            if (!isUser) {
-                res.status(400).send("Email not found");
-            }
-            else {
-                await sendMail(email)
-                res.status(200).send("OTP send to your mail")
+            try {
+                const { email } = req.body;
+                const isUser = await userModel.findOne({ email: email })
+                if (!isUser) {
+                    res.status(400).send("Email not found");
+                }
+                else {
+                    await sendMail(email)
+                    res.status(200).send("OTP send to your mail")
+                }
+            } catch (error) {
+                console.error('Error in findEmail:', error);
+                res.status(500).send("Failed to send OTP. Please try again.");
             }
         },
 
